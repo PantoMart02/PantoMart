@@ -211,6 +211,7 @@
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
           e.preventDefault();
+          localStorage.setItem('pantoUser', JSON.stringify({ username: "PantoMart Member", email: "member@pantomart.com", mobile: "N/A" }));
           window.location.href = '../profile/';
         });
 
