@@ -537,7 +537,8 @@ for cat_id, data in category_data.items():
       
     if not os.path.exists(cat_id):
         os.makedirs(cat_id)
+    cat_grid_content = grid_content.replace('="../../', '="../')
     with open(f"{cat_id}/index.html", "w", encoding="utf-8") as f:
-        f.write(category_template.format(CatName=cat_name, subtitle=data["title"] + " Luxury Collection", grid_content=grid_content))
+        f.write(category_template.format(CatName=cat_name, subtitle=data["title"] + " Luxury Collection", grid_content=cat_grid_content))
 
 print("Successfully generated luxury PantoMart with real names and updated aesthetics.")

@@ -33,30 +33,38 @@
 
 window.shareProduct = function() {
   const url = window.location.href;
+  
+  const showFeedback = () => {
+    const shareBtn = document.querySelector('.share-btn');
+    if (shareBtn) {
+      shareBtn.classList.add('copied');
+      shareBtn.style.color = '#fff';
+      shareBtn.style.background = 'var(--accent)';
+      setTimeout(() => {
+        shareBtn.classList.remove('copied');
+        shareBtn.style.color = 'var(--muted)';
+        shareBtn.style.background = 'var(--white)';
+      }, 2000);
+    }
+  };
+
   if (navigator.share) {
     navigator.share({
       title: document.title,
       url: url
-    }).catch(err => {
+    }).then(showFeedback).catch(err => {
       console.log('Error sharing', err);
+      // Fallback feedback if cancelled
+      showFeedback();
     });
   } else {
-    navigator.clipboard.writeText(url).then(() => {
-      const shareBtn = document.querySelector('.share-btn');
-      if (shareBtn) {
-        shareBtn.classList.add('copied');
-        // change color to indicate copied
-        shareBtn.style.color = '#fff';
-        shareBtn.style.background = 'var(--accent)';
-        setTimeout(() => {
-          shareBtn.classList.remove('copied');
-          shareBtn.style.color = 'var(--muted)';
-          shareBtn.style.background = 'var(--white)';
-        }, 2000);
-      }
-      alert('Link copied to clipboard!');
-    }).catch(err => {
-      console.log('Failed to copy', err);
-    });
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(showFeedback).catch(err => {
+        console.log('Failed to copy', err);
+        showFeedback();
+      });
+    } else {
+      showFeedback();
+    }
   }
 };
