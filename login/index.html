@@ -71,6 +71,31 @@
             <button type="button" id="show-forgot" style="background:none; border:none; color:var(--accent); font-weight:600; font-size:0.85rem; cursor:pointer;">Forgot Password?</button>
           </div>
           <button type="submit" class="btn btn-primary btn-full">Log In</button>
+          <div class="text-center mt-4" style="font-size:0.9rem; color:var(--muted);">
+            Don't have an account? <button type="button" id="show-register" style="background:none; border:none; color:var(--accent); font-weight:600; cursor:pointer;">Sign Up</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- REGISTER VIEW -->
+      <div id="register-view" style="display:none;">
+        <button id="show-login-from-reg" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:4px; font-size:0.9rem; margin-bottom:24px; color:var(--muted);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to login</button>
+        <h2 class="mb-2">Create Account</h2>
+        <p class="text-muted mb-4">Sign up to track orders, save items to your wishlist, and more.</p>
+        <form id="register-form">
+          <div class="form-group mb-2">
+            <label class="form-label">Username</label>
+            <input type="text" id="reg-username" class="form-input" placeholder="Your Name" required>
+          </div>
+          <div class="form-group mb-2">
+            <label class="form-label">Gmail / Email Address</label>
+            <input type="email" id="reg-email" class="form-input" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group mb-4">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
         </form>
       </div>
 
@@ -97,27 +122,59 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const loginView = document.getElementById('login-view');
-      const forgotView = document.getElementById('forgot-view');
-      const showForgot = document.getElementById('show-forgot');
-      const showLogin = document.getElementById('show-login');
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const loginView = document.getElementById('login-view');
+        const forgotView = document.getElementById('forgot-view');
+        const registerView = document.getElementById('register-view');
+        
+        const showForgot = document.getElementById('show-forgot');
+        const showLogin = document.getElementById('show-login');
+        const showRegister = document.getElementById('show-register');
+        const showLoginFromReg = document.getElementById('show-login-from-reg');
 
-      showForgot.addEventListener('click', () => {
-        loginView.style.display = 'none';
-        forgotView.style.display = 'block';
-      });
+        showForgot.addEventListener('click', () => {
+          loginView.style.display = 'none';
+          registerView.style.display = 'none';
+          forgotView.style.display = 'block';
+        });
 
-      showLogin.addEventListener('click', () => {
-        forgotView.style.display = 'none';
-        loginView.style.display = 'block';
-      });
+        showLogin.addEventListener('click', () => {
+          forgotView.style.display = 'none';
+          registerView.style.display = 'none';
+          loginView.style.display = 'block';
+        });
 
-      document.getElementById('login-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        window.location.href = '/profile/';
-      });
+        if (showRegister) {
+          showRegister.addEventListener('click', () => {
+            loginView.style.display = 'none';
+            forgotView.style.display = 'none';
+            registerView.style.display = 'block';
+          });
+        }
+
+        if (showLoginFromReg) {
+          showLoginFromReg.addEventListener('click', () => {
+            registerView.style.display = 'none';
+            loginView.style.display = 'block';
+          });
+        }
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          window.location.href = '/profile/';
+        });
+
+        const regForm = document.getElementById('register-form');
+        if (regForm) {
+          regForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            localStorage.setItem('pantoUser', JSON.stringify({ username, email }));
+            window.location.href = '/profile/';
+          });
+        }
 
       document.getElementById('forgot-form').addEventListener('submit', (e) => {
         e.preventDefault();

@@ -58,7 +58,7 @@
             </div>
             <div style="background:var(--white); border:1px solid var(--secondary); padding:24px; border-radius:var(--radius);">
               <h4 class="mb-2">Account Info</h4>
-              <p class="text-muted"><strong>Name:</strong> User<br><strong>Email:</strong> user@example.com</p>
+              <p class="text-muted"><strong id="profile-name-label">Name:</strong> <span id="profile-name">User</span><br><strong id="profile-email-label">Email:</strong> <span id="profile-email">user@example.com</span></p>
             </div>
           </div>
         </div>
@@ -104,6 +104,16 @@
   <script src="../assets/js/tracking.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Load user info
+      const userStr = localStorage.getItem('pantoUser');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        const nameEl = document.getElementById('profile-name');
+        const emailEl = document.getElementById('profile-email');
+        if(nameEl) nameEl.textContent = user.username;
+        if(emailEl) emailEl.textContent = user.email;
+      }
+
       // Tab Switching
       const tabs = document.querySelectorAll('.tab-btn[data-target]');
       const panels = document.querySelectorAll('.tab-panel');
@@ -143,7 +153,7 @@
         
         let total = 0;
         container.innerHTML = cart.map((p, i) => {
-          total += parseFloat(p.price.replace('$',''));
+          total += parseFloat(p.price.replace('₹','').replace(/,/g,''));
           return `
             <div style="display:flex; gap:24px; border:1px solid var(--secondary); padding:16px; border-radius:var(--radius); margin-bottom:16px; background:var(--white);">
               <img src="${p.img}" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
@@ -156,7 +166,7 @@
           `;
         }).join('');
         
-        document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('cart-total').textContent = `₹${total.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
         summary.style.display = 'block';
       }
 
