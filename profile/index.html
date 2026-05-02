@@ -153,7 +153,7 @@
         
         let total = 0;
         container.innerHTML = cart.map((p, i) => {
-          total += parseFloat(p.price.replace('₹','').replace(/,/g,''));
+          total += parseFloat(String(p.price).replace(/[$₹,]/g, ''));
           return `
             <div style="display:flex; gap:24px; border:1px solid var(--secondary); padding:16px; border-radius:var(--radius); margin-bottom:16px; background:var(--white);">
               <img src="${p.img}" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">

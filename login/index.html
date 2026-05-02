@@ -162,7 +162,7 @@
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
           e.preventDefault();
-          window.location.href = '/profile/';
+          window.location.href = '../profile/';
         });
 
         const regForm = document.getElementById('register-form');
@@ -172,7 +172,7 @@
             const username = document.getElementById('reg-username').value;
             const email = document.getElementById('reg-email').value;
             localStorage.setItem('pantoUser', JSON.stringify({ username, email }));
-            window.location.href = '/profile/';
+            window.location.href = '../profile/';
           });
         }
 
