@@ -50,7 +50,7 @@
         <button class="tab-btn" data-target="cart">Shopping Cart</button>
         <button class="tab-btn" data-target="wishlist">Wishlist</button>
         <button class="tab-btn" data-target="orders">Orders</button>
-        <button class="tab-btn" onclick="window.location.href='../login/'" style="color:#e74c3c; margin-top:32px;">Logout</button>
+        <button class="tab-btn" onclick="logoutUser()" style="color:#e74c3c; margin-top:32px; font-weight:600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px; vertical-align:-3px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Logout</button>
       </aside>
       
       <div class="profile-content">
@@ -268,6 +268,15 @@
         }
         container.innerHTML = html;
       }
+
+      window.logoutUser = () => {
+        localStorage.removeItem('pantoUser');
+        // Clear cart and wishlist on logout for a clean session (optional, but good for mock)
+        localStorage.removeItem('pantoCart');
+        localStorage.removeItem('pantoWishlist');
+        localStorage.removeItem('pantoOrders');
+        window.location.href = '../login/';
+      };
 
       // Razorpay Placeholder
       const coBtn = document.getElementById('checkout-btn');
