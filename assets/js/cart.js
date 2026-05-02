@@ -6,8 +6,13 @@
   const setCart = v => localStorage.setItem('pantoCart', JSON.stringify(v));
   const setWish = v => localStorage.setItem('pantoWishlist', JSON.stringify(v));
   const trackRecent = (product) => {
+    let rawP = String(product.price).replace(/[$₹, ]/g, '');
+    let numP = parseFloat(rawP) || 0;
+    if (String(product.price).includes('$')) numP = Math.round(numP * 83);
+    if (numP > 0) product.price = '₹' + numP.toLocaleString('en-IN', {maximumFractionDigits:0});
+
     let recent = JSON.parse(localStorage.getItem('pantoRecent') || '[]');
-    recent = recent.filter(p => p.id !== product.id);
+    recent = recent.filter(p => p.id !== product.id && p.name !== product.name);
     recent.unshift(product);
     if (recent.length > 8) recent = recent.slice(0, 8);
     localStorage.setItem('pantoRecent', JSON.stringify(recent));
