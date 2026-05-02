@@ -282,13 +282,12 @@ p { line-height: 1.8; color: var(--muted); }
   inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0.8;
 }
 .hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(250,250,250,0.95) 0%, rgba(250,250,250,0.1) 100%);
+  background: transparent;
   z-index: 1;
 }
 .hero-content {
