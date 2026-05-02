@@ -34,6 +34,13 @@
     </div>
   </nav>
 
+  <section class="category-hero flex-center position-relative" style="min-height:30vh; background: #0a0a0a;">
+    <div class="text-center aos" style="position:relative; z-index:2; color:#fff;">
+      <h1 style="font-size:2.5rem; margin-bottom:16px; color:#fff; font-family:'Playfair Display', serif;" id="profile-greeting">Welcome, Esteemed Guest</h1>
+      <p style="font-size:1.1rem; color:rgba(255,255,255,0.7); font-family:'Inter', sans-serif;">Manage your bespoke collections and recent orders.</p>
+    </div>
+  </section>
+
   <section class="container section">
     <div class="profile-layout">
       <aside class="profile-sidebar">
@@ -110,8 +117,10 @@
         const user = JSON.parse(userStr);
         const nameEl = document.getElementById('profile-name');
         const emailEl = document.getElementById('profile-email');
+        const greetingEl = document.getElementById('profile-greeting');
         if(nameEl) nameEl.textContent = user.username;
         if(emailEl) emailEl.textContent = user.email;
+        if(greetingEl) greetingEl.textContent = `Welcome, ${user.username}`;
       }
 
       // Tab Switching
@@ -128,6 +137,7 @@
         
         if(targetId === 'cart') renderCart();
         if(targetId === 'wishlist') renderWishlist();
+        if(targetId === 'orders') renderOrders();
       };
 
       tabs.forEach(tab => {
@@ -155,11 +165,11 @@
         container.innerHTML = cart.map((p, i) => {
           total += parseFloat(String(p.price).replace(/[$₹,]/g, ''));
           return `
-            <div style="display:flex; gap:24px; border:1px solid var(--secondary); padding:16px; border-radius:var(--radius); margin-bottom:16px; background:var(--white);">
+            <div style="display:flex; gap:24px; border:1px solid var(--border-color); padding:16px; border-radius:var(--radius); margin-bottom:16px; background:var(--white); box-shadow:var(--shadow);">
               <img src="${p.img}" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
               <div style="flex:1;">
-                <h4 style="margin-bottom:8px;">${p.name}</h4>
-                <div style="font-weight:700; color:var(--accent);">${p.price}</div>
+                <h4 style="margin-bottom:8px; font-family:'Playfair Display', serif; font-size:1.1rem; text-transform:none;">${p.name}</h4>
+                <div style="font-weight:600; font-family:'Inter', sans-serif; color:var(--text);">${p.price}</div>
               </div>
               <button onclick="removeCart(${i})" style="background:none; border:none; color:#e74c3c; cursor:pointer; align-self:center; font-weight:600;">Remove</button>
             </div>
@@ -211,12 +221,64 @@
         if(wishBadge) wishBadge.textContent = wish.length;
       };
 
+      // Dynamic Orders
+      function renderOrders() {
+        const orders = JSON.parse(localStorage.getItem('pantoOrders') || '[]');
+        const container = document.getElementById('orders');
+        
+        let html = '<h2 class="mb-3">Order History</h2>';
+        if(orders.length === 0) {
+          html += '<p class="text-muted">You haven\\'t placed any orders yet.</p>';
+        } else {
+          html += orders.map(o => `
+            <div style="background:var(--white); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius); margin-bottom:24px; box-shadow:var(--shadow);">
+              <div class="flex-between mb-3" style="border-bottom:1px solid var(--border-color); padding-bottom:16px;">
+                <div>
+                  <div style="font-weight:600; font-family:'Inter', sans-serif; letter-spacing:0.05em;">Order #${o.id}</div>
+                  <div style="font-size:0.85rem; color:var(--muted);">${o.date}</div>
+                </div>
+                <div style="font-weight:600; color:var(--text); font-size:1.1rem;">${o.total}</div>
+              </div>
+              <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                ${o.items.map(item => `<img src="${item.img}" style="width:60px; height:60px; object-fit:cover; border-radius:4px; border:1px solid var(--border-color);" title="${item.name}">`).join('')}
+              </div>
+            </div>
+          `).join('');
+        }
+        container.innerHTML = html;
+      }
+
       // Razorpay Placeholder
       const coBtn = document.getElementById('checkout-btn');
       if(coBtn) {
         coBtn.addEventListener('click', () => {
-          alert('Razorpay Checkout Integration Placeholder\\nTotal: ' + document.getElementById('cart-total').textContent);
-          // Here you would init Razorpay(options).open()
+          coBtn.textContent = 'Processing Secure Payment...';
+          coBtn.disabled = true;
+          coBtn.style.opacity = '0.7';
+          
+          setTimeout(() => {
+            const cart = JSON.parse(localStorage.getItem('pantoCart') || '[]');
+            const orders = JSON.parse(localStorage.getItem('pantoOrders') || '[]');
+            const newOrder = {
+              id: 'ORD-' + Math.floor(Math.random()*1000000),
+              date: new Date().toLocaleDateString(),
+              total: document.getElementById('cart-total').textContent,
+              items: cart
+            };
+            orders.unshift(newOrder); // Add to beginning
+            localStorage.setItem('pantoOrders', JSON.stringify(orders));
+            localStorage.setItem('pantoCart', '[]'); // Clear cart
+            
+            renderCart();
+            const cartBadge = document.getElementById('cart-badge');
+            if(cartBadge) cartBadge.textContent = 0;
+            
+            switchTab('orders'); // Jump to orders
+            
+            coBtn.textContent = 'Proceed to Checkout';
+            coBtn.disabled = false;
+            coBtn.style.opacity = '1';
+          }, 1500);
         });
       }
     });

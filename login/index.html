@@ -9,6 +9,44 @@
   <link rel="stylesheet" href="../assets/css/product.css">
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body { background: #0a0a0a; color: #fff; }
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top right, rgba(200, 169, 126, 0.15), transparent 50%),
+                  radial-gradient(circle at bottom left, rgba(200, 169, 126, 0.1), transparent 50%),
+                  #0a0a0a;
+      position: relative;
+    }
+    .glass-panel {
+      width: 100%; max-width: 440px;
+      background: rgba(25, 25, 25, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 48px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 2;
+    }
+    .form-input {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .form-input:focus { border-color: var(--accent); background: rgba(0,0,0,0.6); }
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-label { color: rgba(255,255,255,0.7); }
+    h2 { color: #fff; font-family: 'Playfair Display', serif; }
+    .text-muted { color: rgba(255,255,255,0.5) !important; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 600; border: none; }
+    .btn-primary:hover { background: #b5952f; }
+    .g_id_signin { filter: invert(0.9) hue-rotate(180deg); opacity: 0.9; }
+  </style>
 </head>
 <body>
 
@@ -23,8 +61,8 @@
     </div>
   </nav>
 
-  <section class="container flex-center" style="min-height: 80vh; padding: 40px 0;">
-    <div style="width: 100%; max-width: 440px; background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--secondary); padding: 48px; box-shadow: var(--shadow);">
+  <section class="login-container">
+    <div class="glass-panel">
       
       <!-- LOGIN VIEW -->
       <div id="login-view">
@@ -50,9 +88,9 @@
         </div>
 
         <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-          <div style="height:1px; background:var(--secondary); flex:1;"></div>
-          <span style="color:var(--muted); font-size:0.85rem;">or continue with email</span>
-          <div style="height:1px; background:var(--secondary); flex:1;"></div>
+          <div style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></div>
+          <span style="color:rgba(255,255,255,0.4); font-size:0.85rem; letter-spacing:0.05em; text-transform:uppercase;">Or with email</span>
+          <div style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></div>
         </div>
 
         <form id="login-form">
@@ -65,14 +103,14 @@
             <input type="password" class="form-input" placeholder="••••••••" required>
           </div>
           <div class="flex-between mb-4">
-            <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; cursor:pointer;">
-              <input type="checkbox"> Remember me
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; cursor:pointer; color:rgba(255,255,255,0.7);">
+              <input type="checkbox" style="accent-color: var(--accent);"> Remember me
             </label>
-            <button type="button" id="show-forgot" style="background:none; border:none; color:var(--accent); font-weight:600; font-size:0.85rem; cursor:pointer;">Forgot Password?</button>
+            <button type="button" id="show-forgot" style="background:none; border:none; color:var(--accent); font-weight:500; font-size:0.85rem; cursor:pointer;">Forgot Password?</button>
           </div>
           <button type="submit" class="btn btn-primary btn-full">Log In</button>
-          <div class="text-center mt-4" style="font-size:0.9rem; color:var(--muted);">
-            Don't have an account? <button type="button" id="show-register" style="background:none; border:none; color:var(--accent); font-weight:600; cursor:pointer;">Sign Up</button>
+          <div class="text-center mt-4" style="font-size:0.9rem; color:rgba(255,255,255,0.5);">
+            Don't have an account? <button type="button" id="show-register" style="background:none; border:none; color:var(--white); font-weight:600; cursor:pointer; margin-left:4px;">Sign Up</button>
           </div>
         </form>
       </div>
@@ -116,9 +154,10 @@
     </div>
   </section>
 
-  <footer class="footer">
+  <footer class="footer" style="background:#0a0a0a; border-top:1px solid rgba(255,255,255,0.1); margin-top:0; padding:40px 0;">
     <div class="container text-center">
-      <div class="footer-bottom mt-0 border-0">&copy; 2026 PantoMart. All rights reserved.</div>
+      <div class="footer-logo" style="color:#fff;">Panto<span style="color:var(--accent);">Mart</span></div>
+      <div class="footer-bottom mt-0 border-0" style="color:rgba(255,255,255,0.3);">&copy; 2026 PantoMart. All rights reserved.</div>
     </div>
   </footer>
 
