@@ -41,6 +41,7 @@
         }
 
         const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
+        const cart = getCart();
         const p = { 
           id: btn.dataset.id, 
           name: btn.dataset.name, 
