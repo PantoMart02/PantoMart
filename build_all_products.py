@@ -196,7 +196,7 @@ product_template = """<!DOCTYPE html>
           <div class="rating-count">4.7/5 ({rev_count} Reviews)</div>
         </div>
         <h1 class="product-title">{title}</h1>
-        <div class="product-price"><span class="product-price-val">${price}</span> <span class="original">${old_price}</span></div>
+        <div class="product-price"><span class="product-price-val">{price}</span> <span class="original">{old_price}</span></div>
         <p class="product-hook">"{hook}"</p>
         
         <div class="labels-row">
@@ -205,7 +205,7 @@ product_template = """<!DOCTYPE html>
           <span class="label-tag">Signature Series</span>
         </div>
 
-        <button class="btn btn-primary btn-full buy-btn mt-3 mb-4" data-id="{cat}-{idx}" data-name="{title}" data-price="${price}" data-img="{img_path}">Add to Cart</button>
+        <button class="btn btn-primary btn-full buy-btn mt-3 mb-4" data-id="{cat}-{idx}" data-name="{title}" data-price="{price}" data-img="{img_path}">Add to Cart</button>
 
         <div class="divider"></div>
 
@@ -254,9 +254,9 @@ product_template = """<!DOCTYPE html>
   <div id="sticky-buy-bar" class="sticky-buy-bar">
     <div style="flex:1;">
       <div style="font-weight:600;font-size:0.9rem;color:var(--white);">{title}</div>
-      <div style="color:var(--accent);font-weight:700;">${price}</div>
+      <div style="color:var(--accent);font-weight:700;">{price}</div>
     </div>
-    <button class="btn btn-primary buy-btn" data-id="{cat}-{idx}" data-name="{title}" data-price="${price}" data-img="{img_path}">Add to Cart</button>
+    <button class="btn btn-primary buy-btn" data-id="{cat}-{idx}" data-name="{title}" data-price="{price}" data-img="{img_path}">Add to Cart</button>
   </div>
 
   <section class="container section">
@@ -323,7 +323,7 @@ category_template = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panto{CatName} Luxury Catalog | PantoMart</title>
+  <title>{CatName} | PantoMart Luxury</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/main.css">
   <link rel="stylesheet" href="../assets/css/product.css">
@@ -339,7 +339,7 @@ category_template = """<!DOCTYPE html>
       <a href="../" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">{CatName}</span></a>
       <div class="search-wrap">
         <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="global-search" class="search-input" placeholder="Search the collection...">
+        <input type="text" id="global-search" class="search-input" placeholder="Search our premium collection...">
         <div id="search-dropdown" class="search-dropdown"></div>
       </div>
       <div class="nav-actions">
@@ -350,12 +350,15 @@ category_template = """<!DOCTYPE html>
     </div>
   </nav>
 
-  <section class="container">
-    <div class="cat-banner">
-      <h1>Panto{CatName}</h1>
-      <p>{subtitle}</p>
+  <section class="category-hero flex-center position-relative" style="min-height:40vh; background-image: url('{cat_bg}'); background-size: cover; background-position: center;">
+    <div class="editorial-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1;"></div>
+    <div class="text-center aos" style="position:relative; z-index:2; color:#fff;">
+      <h1 style="font-size:3rem; margin-bottom:16px; color:#fff;">{CatName}</h1>
+      <p style="font-size:1.2rem; color:#f8f8f8;">{subtitle}</p>
     </div>
+  </section>
 
+  <section class="container section">
     <!-- FILTER SYSTEM -->
     <div class="flex-between mb-4" style="background:var(--bg-secondary); padding:20px 24px; border-radius:var(--radius); border:1px solid var(--border-color);">
       <div style="font-weight:500; color:var(--white); letter-spacing:0.1em; text-transform:uppercase; font-size:0.8rem;">Filter Collection:</div>
@@ -414,14 +417,14 @@ for cat_id, data in category_data.items():
     
     # Shuffle real names to avoid obvious ordering
     real_names = data["real_names"][:]
-    random.shuffle(real_names)
+    # random.shuffle(real_names)
     
     for idx, img_path in enumerate(images):
         web_path = "../../" + img_path.replace("\\", "/")
         # Assign a real luxurious name, fallback to generic if we run out
         title = real_names[idx] if idx < len(real_names) else f"{data['title']} Signature Edition {idx+1}"
-        price_val = random.randint(85, 450) # Increased luxury pricing
-        price = f"{price_val}.00"
+        price_val = random.randint(3500, 25000) # Increased luxury pricing
+        price = f"₹{price_val:,}"
         slug = title.lower().replace(" ", "-")
         all_products.append({
             "cat": cat_id,
@@ -445,7 +448,8 @@ for cat_id, data in category_data.items():
         web_path = p["web_path"]
         title = p["title"]
         price = p["price"]
-        old_price = f"${float(price) + 45}.00"
+        price_val = int(price.replace('₹', '').replace(',', ''))
+        old_price = f"₹{price_val + random.randint(1500, 5000):,}"
         
         ben_html = "".join([f"<li>{b}</li>" for b in data["benefits"]])
         
@@ -483,7 +487,7 @@ for cat_id, data in category_data.items():
                 <div class="card-body">
                   <div class="card-title">{rel['title']}</div>
                   <div class="card-sub">{phrase}</div>
-                  <div class="card-price">${rel['price']}</div>
+                  <div class="card-price">{rel['price']}</div>
                 </div>
               </a>
             </div>"""
@@ -530,7 +534,7 @@ for cat_id, data in category_data.items():
           <div class="card-body">
             <h3 class="card-title">{title}</h3>
             <p class="card-sub">{phrase}</p>
-            <div class="card-price">${price}</div>
+            <div class="card-price">{price}</div>
           </div>
         </a>
       </div>"""
@@ -538,7 +542,8 @@ for cat_id, data in category_data.items():
     if not os.path.exists(cat_id):
         os.makedirs(cat_id)
     cat_grid_content = grid_content.replace('="../../', '="../')
+    cat_bg_img = cat_products[0]["web_path"].replace("../../", "../") if cat_products else ""
     with open(f"{cat_id}/index.html", "w", encoding="utf-8") as f:
-        f.write(category_template.format(CatName=cat_name, subtitle=data["title"] + " Luxury Collection", grid_content=cat_grid_content))
+        f.write(category_template.format(CatName=cat_name, subtitle=data["title"] + " Luxury Collection", grid_content=cat_grid_content, cat_bg=cat_bg_img))
 
 print("Successfully generated luxury PantoMart with real names and updated aesthetics.")

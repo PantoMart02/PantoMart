@@ -45,8 +45,8 @@
       let visibleCards = [...cards];
       if (priceFilter) {
         visibleCards.sort((a, b) => {
-          const pA = parseFloat(a.querySelector('.card-price').textContent.replace('$', ''));
-          const pB = parseFloat(b.querySelector('.card-price').textContent.replace('$', ''));
+          const pA = parseFloat(a.querySelector('.card-price').textContent.replace('₹', '').replace(/,/g, ''));
+          const pB = parseFloat(b.querySelector('.card-price').textContent.replace('₹', '').replace(/,/g, ''));
           if (priceFilter.value === 'Price: Low to High') return pA - pB;
           if (priceFilter.value === 'Price: High to Low') return pB - pA;
           return 0;
