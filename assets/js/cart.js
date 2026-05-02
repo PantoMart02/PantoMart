@@ -11,6 +11,10 @@
     if (String(product.price).includes('$')) numP = Math.round(numP * 83);
     if (numP > 0) product.price = '₹' + numP.toLocaleString('en-IN', {maximumFractionDigits:0});
 
+    const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
+    product.img = rootPath + String(product.img).replace(/^(\.\.\/|\.\/)+/, '');
+    product.url = rootPath + String(product.url).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '');
+
     let recent = JSON.parse(localStorage.getItem('pantoRecent') || '[]');
     recent = recent.filter(p => p.id !== product.id && p.name !== product.name);
     recent.unshift(product);
@@ -36,8 +40,14 @@
           return;
         }
 
-        const cart = getCart();
-        const p = { id: btn.dataset.id, name: btn.dataset.name, price: btn.dataset.price, img: btn.dataset.img, url: window.location.pathname };
+        const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
+        const p = { 
+          id: btn.dataset.id, 
+          name: btn.dataset.name, 
+          price: btn.dataset.price, 
+          img: rootPath + String(btn.dataset.img).replace(/^(\.\.\/|\.\/)+/, ''), 
+          url: rootPath + String(window.location.pathname).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '') 
+        };
         if (!cart.find(x => x.id === p.id)) { cart.push(p); setCart(cart); }
         updateBadges();
         const orig = btn.textContent;
@@ -65,9 +75,13 @@
         }
 
         let wish = getWish();
+        const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
+        const pUrl = btn.dataset.url ? rootPath + String(btn.dataset.url).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '') : rootPath + String(window.location.pathname).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '');
+        const pImg = rootPath + String(btn.dataset.img).replace(/^(\.\.\/|\.\/)+/, '');
+
         const idx = wish.findIndex(p => p.id === pid);
         if (idx === -1) {
-          wish.push({ id: pid, name: btn.dataset.name, price: btn.dataset.price, img: btn.dataset.img, url: btn.dataset.url || window.location.pathname });
+          wish.push({ id: pid, name: btn.dataset.name, price: btn.dataset.price, img: pImg, url: pUrl });
           btn.classList.add('active');
         } else {
           wish.splice(idx, 1);

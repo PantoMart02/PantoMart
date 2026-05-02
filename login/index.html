@@ -133,6 +133,10 @@
             <label class="form-label">Mobile Number</label>
             <input type="tel" id="reg-mobile" class="form-input" placeholder="+1 (555) 000-0000" required>
           </div>
+          <div class="form-group mb-2">
+            <label class="form-label">Age</label>
+            <input type="number" id="reg-age" class="form-input" placeholder="e.g. 25" min="13" max="120" required>
+          </div>
           <div class="form-group mb-4">
             <label class="form-label">Password</label>
             <input type="password" class="form-input" placeholder="••••••••" required>
@@ -222,7 +226,8 @@
             const username = document.getElementById('reg-username').value;
             const email = document.getElementById('reg-email').value;
             const mobile = document.getElementById('reg-mobile').value;
-            localStorage.setItem('pantoUser', JSON.stringify({ username, email, mobile }));
+            const age = document.getElementById('reg-age').value;
+            localStorage.setItem('pantoUser', JSON.stringify({ username, email, mobile, age }));
             window.location.href = '../profile/';
           });
         }
