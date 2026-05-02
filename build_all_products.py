@@ -149,8 +149,8 @@ product_template = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} | PantoMart Luxury</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <link rel="stylesheet" href="/assets/css/product.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/product.css">
 </head>
 <body data-product-id="{cat}-{idx}">
 
@@ -160,16 +160,16 @@ product_template = """<!DOCTYPE html>
 
   <nav class="navbar">
     <div class="container flex-between">
-      <a href="/" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">{cat_capitalized}</span></a>
+      <a href="../../" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">{cat_capitalized}</span></a>
       <div class="search-wrap">
         <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <input type="text" id="global-search" class="search-input" placeholder="Search our premium collection...">
         <div id="search-dropdown" class="search-dropdown"></div>
       </div>
       <div class="nav-actions">
-        <a href="/profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
-        <a href="/profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
-        <a href="/login/" class="nav-icon" title="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+        <a href="../../profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
+        <a href="../../profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
+        <a href="../../login/" class="nav-icon" title="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
       </div>
     </div>
   </nav>
@@ -179,8 +179,11 @@ product_template = """<!DOCTYPE html>
       <!-- HERO GALLERY -->
       <div class="product-gallery">
         <div class="main-img position-relative">
-          <button class="wish-btn wish-btn-main" data-id="{cat}-{idx}" data-name="{title}" data-img="{img_path}">
+          <button class="wish-btn wish-btn-main" data-id="{cat}-{idx}" data-name="{title}" data-img="{img_path}" title="Add to Wishlist">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </button>
+          <button class="share-btn" onclick="shareProduct()" title="Share Product">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
           </button>
           <img src="{img_path}" id="main-product-image" alt="{title}">
         </div>
@@ -297,20 +300,20 @@ product_template = """<!DOCTYPE html>
       <div class="footer-logo">Panto<span style="color:var(--accent); font-weight:600; font-style:italic;">Mart</span></div>
       <p style="margin-bottom:24px; font-size:0.9rem; color:var(--muted);">Smart luxury products for elevated living.</p>
       <ul class="footer-links flex-center" style="gap:24px;">
-        <li><a href="/about/">About Us</a></li>
-        <li><a href="/contact/">Concierge</a></li>
-        <li><a href="/terms/">Terms</a></li>
-        <li><a href="/privacy-policy/">Privacy</a></li>
+        <li><a href="../../about/">About Us</a></li>
+        <li><a href="../../contact/">Concierge</a></li>
+        <li><a href="../../terms/">Terms</a></li>
+        <li><a href="../../privacy-policy/">Privacy</a></li>
       </ul>
       <div class="footer-bottom">&copy; 2026 PantoMart Luxury. All rights reserved.</div>
     </div>
   </footer>
-  <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/cart.js"></script>
-  <script src="/assets/js/search.js"></script>
-  <script src="/assets/js/delivery.js"></script>
-  <script src="/assets/js/auth.js"></script>
-  <script src="/assets/js/tracking.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/cart.js"></script>
+  <script src="../../assets/js/search.js"></script>
+  <script src="../../assets/js/delivery.js"></script>
+  <script src="../../assets/js/auth.js"></script>
+  <script src="../../assets/js/tracking.js"></script>
 </body>
 </html>
 """
@@ -322,8 +325,8 @@ category_template = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panto{CatName} Luxury Catalog | PantoMart</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <link rel="stylesheet" href="/assets/css/product.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/product.css">
 </head>
 <body>
 
@@ -333,16 +336,16 @@ category_template = """<!DOCTYPE html>
 
   <nav class="navbar">
     <div class="container flex-between">
-      <a href="/" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">{CatName}</span></a>
+      <a href="../" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">{CatName}</span></a>
       <div class="search-wrap">
         <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <input type="text" id="global-search" class="search-input" placeholder="Search the collection...">
         <div id="search-dropdown" class="search-dropdown"></div>
       </div>
       <div class="nav-actions">
-        <a href="/profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
-        <a href="/profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
-        <a href="/login/" class="nav-icon" title="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+        <a href="../profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
+        <a href="../profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
+        <a href="../login/" class="nav-icon" title="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
       </div>
     </div>
   </nav>
@@ -379,20 +382,20 @@ category_template = """<!DOCTYPE html>
       <div class="footer-logo">Panto<span style="color:var(--accent); font-weight:600; font-style:italic;">Mart</span></div>
       <p style="margin-bottom:24px; font-size:0.9rem; color:var(--muted);">Smart luxury products for elevated living.</p>
       <ul class="footer-links flex-center" style="gap:24px;">
-        <li><a href="/about/">About Us</a></li>
-        <li><a href="/contact/">Concierge</a></li>
-        <li><a href="/terms/">Terms</a></li>
-        <li><a href="/privacy-policy/">Privacy</a></li>
+        <li><a href="../about/">About Us</a></li>
+        <li><a href="../contact/">Concierge</a></li>
+        <li><a href="../terms/">Terms</a></li>
+        <li><a href="../privacy-policy/">Privacy</a></li>
       </ul>
       <div class="footer-bottom">&copy; 2026 PantoMart Luxury. All rights reserved.</div>
     </div>
   </footer>
-  <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/cart.js"></script>
-  <script src="/assets/js/search.js"></script>
-  <script src="/assets/js/delivery.js"></script>
-  <script src="/assets/js/auth.js"></script>
-  <script src="/assets/js/tracking.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/search.js"></script>
+  <script src="../assets/js/delivery.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/tracking.js"></script>
 </body>
 </html>
 """
@@ -414,7 +417,7 @@ for cat_id, data in category_data.items():
     random.shuffle(real_names)
     
     for idx, img_path in enumerate(images):
-        web_path = "/" + img_path.replace("\\", "/")
+        web_path = "../../" + img_path.replace("\\", "/")
         # Assign a real luxurious name, fallback to generic if we run out
         title = real_names[idx] if idx < len(real_names) else f"{data['title']} Signature Edition {idx+1}"
         price_val = random.randint(85, 450) # Increased luxury pricing
@@ -474,8 +477,8 @@ for cat_id, data in category_data.items():
         for rel in related_subset:
             phrase = random.choice(["Curated Choice", "Signature Piece", "Bespoke Essential"])
             related_html += f"""
-            <div class="card aos" data-search-name="{rel['title']}" data-search-url="/{rel['cat']}/{rel['slug']}/" data-search-cat="{rel['cat']}">
-              <a href="/{rel['cat']}/{rel['slug']}/">
+            <div class="card aos" data-search-name="{rel['title']}" data-search-url="../../{rel['cat']}/{rel['slug']}/" data-search-cat="{rel['cat']}">
+              <a href="../../{rel['cat']}/{rel['slug']}/">
                 <div class="card-img-wrap"><img src="{rel['web_path']}" alt="{rel['title']}"></div>
                 <div class="card-body">
                   <div class="card-title">{rel['title']}</div>
@@ -519,10 +522,10 @@ for cat_id, data in category_data.items():
         phrase = random.choice(["Curated Choice", "Signature Piece", "Bespoke Essential", "Exclusive Addition"])
         grid_content += f"""
       <div class="card aos" data-search-name="{title}" data-search-url="/{cat_id}/{slug}/" data-search-cat="{cat_name}">
-        <button class="wish-btn" data-id="{cat_id}-{idx}" data-name="{title}" data-img="{web_path}" data-url="/{cat_id}/{slug}/">
+        <button class="wish-btn" data-id="{cat_id}-{idx}" data-name="{title}" data-img="{web_path}" data-url="../../{cat_id}/{slug}/">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
         </button>
-        <a href="/{cat_id}/{slug}/">
+        <a href="../../{cat_id}/{slug}/">
           <div class="card-img-wrap"><img src="{web_path}" alt="{title}"></div>
           <div class="card-body">
             <h3 class="card-title">{title}</h3>

@@ -30,3 +30,33 @@
     initGallery();
   });
 })();
+
+window.shareProduct = function() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({
+      title: document.title,
+      url: url
+    }).catch(err => {
+      console.log('Error sharing', err);
+    });
+  } else {
+    navigator.clipboard.writeText(url).then(() => {
+      const shareBtn = document.querySelector('.share-btn');
+      if (shareBtn) {
+        shareBtn.classList.add('copied');
+        // change color to indicate copied
+        shareBtn.style.color = '#fff';
+        shareBtn.style.background = 'var(--accent)';
+        setTimeout(() => {
+          shareBtn.classList.remove('copied');
+          shareBtn.style.color = 'var(--muted)';
+          shareBtn.style.background = 'var(--white)';
+        }, 2000);
+      }
+      alert('Link copied to clipboard!');
+    }).catch(err => {
+      console.log('Failed to copy', err);
+    });
+  }
+};

@@ -25,6 +25,24 @@
   transition: transform 0.5s ease;
 }
 .product-gallery .main-img:hover img { transform: scale(1.05); }
+
+/* Share and Wish buttons over hero image */
+.share-btn {
+  position: absolute;
+  top: 16px; right: 64px;
+  width: 40px; height: 40px;
+  background: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 3;
+  color: var(--muted);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+.share-btn:hover { color: var(--accent); border-color: var(--accent); }
+.share-btn.copied { color: #fff; background: var(--accent); border-color: var(--accent); }
 .thumb-row { display: flex; gap: 16px; flex-wrap: wrap; }
 .thumb {
   width: 80px; height: 100px;
