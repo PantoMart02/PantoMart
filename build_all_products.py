@@ -149,7 +149,8 @@ product_template = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} | PantoMart Luxury</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/product.css">
 </head>
 <body data-product-id="{cat}-{idx}">
 
@@ -296,7 +297,12 @@ product_template = """<!DOCTYPE html>
       <div class="footer-bottom">&copy; 2026 PantoMart Luxury. All rights reserved.</div>
     </div>
   </footer>
-  <script src="/script.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/cart.js"></script>
+  <script src="/assets/js/search.js"></script>
+  <script src="/assets/js/delivery.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/tracking.js"></script>
 </body>
 </html>
 """
@@ -308,7 +314,8 @@ category_template = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panto{CatName} Luxury Catalog | PantoMart</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/product.css">
 </head>
 <body>
 
@@ -372,12 +379,17 @@ category_template = """<!DOCTYPE html>
       <div class="footer-bottom">&copy; 2026 PantoMart Luxury. All rights reserved.</div>
     </div>
   </footer>
-  <script src="/script.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/cart.js"></script>
+  <script src="/assets/js/search.js"></script>
+  <script src="/assets/js/delivery.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/tracking.js"></script>
 </body>
 </html>
 """
 
-base_dir = "IMAGES"
+base_dir = "assets/images/products"
 all_products = []
 
 for cat_id, data in category_data.items():
@@ -399,9 +411,11 @@ for cat_id, data in category_data.items():
         title = real_names[idx] if idx < len(real_names) else f"{data['title']} Signature Edition {idx+1}"
         price_val = random.randint(85, 450) # Increased luxury pricing
         price = f"{price_val}.00"
+        slug = title.lower().replace(" ", "-")
         all_products.append({
             "cat": cat_id,
             "idx": idx,
+            "slug": slug,
             "title": title,
             "web_path": web_path,
             "price": price,
@@ -448,8 +462,8 @@ for cat_id, data in category_data.items():
         for rel in related_subset:
             phrase = random.choice(["Curated Choice", "Signature Piece", "Bespoke Essential"])
             related_html += f"""
-            <div class="card aos" data-search-name="{rel['title']}" data-search-url="/product/{rel['cat']}-{rel['idx']}.html" data-search-cat="{rel['cat']}">
-              <a href="/product/{rel['cat']}-{rel['idx']}.html">
+            <div class="card aos" data-search-name="{rel['title']}" data-search-url="/{rel['cat']}/{rel['slug']}/" data-search-cat="{rel['cat']}">
+              <a href="/{rel['cat']}/{rel['slug']}/">
                 <div class="card-img-wrap"><img src="{rel['web_path']}" alt="{rel['title']}"></div>
                 <div class="card-body">
                   <div class="card-title">{rel['title']}</div>
@@ -484,17 +498,19 @@ for cat_id, data in category_data.items():
             description=description
         )
         
-        prod_file = f"product/{cat_id}-{idx}.html"
+        slug = p["slug"]
+        prod_file = f"{cat_id}/{slug}/index.html"
+        os.makedirs(f"{cat_id}/{slug}", exist_ok=True)
         with open(prod_file, "w", encoding="utf-8") as f:
             f.write(html)
             
         phrase = random.choice(["Curated Choice", "Signature Piece", "Bespoke Essential", "Exclusive Addition"])
         grid_content += f"""
-      <div class="card aos" data-search-name="{title}" data-search-url="/{prod_file}" data-search-cat="{cat_name}">
-        <button class="wish-btn" data-id="{cat_id}-{idx}" data-name="{title}" data-img="{web_path}" data-url="/{prod_file}">
+      <div class="card aos" data-search-name="{title}" data-search-url="/{cat_id}/{slug}/" data-search-cat="{cat_name}">
+        <button class="wish-btn" data-id="{cat_id}-{idx}" data-name="{title}" data-img="{web_path}" data-url="/{cat_id}/{slug}/">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
         </button>
-        <a href="/{prod_file}">
+        <a href="/{cat_id}/{slug}/">
           <div class="card-img-wrap"><img src="{web_path}" alt="{title}"></div>
           <div class="card-body">
             <h3 class="card-title">{title}</h3>
