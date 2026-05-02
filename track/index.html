@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Order | PantoMart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- MANDATORY BANNER -->
+  <div class="site-banner">
+    <strong>PantoMart</strong> | <span>Smart products for everyday life</span>
+  </div>
+
+  <nav class="navbar">
+    <div class="container flex-between">
+      <a href="/" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">Mart</span></a>
+      <div class="search-wrap">
+        <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="global-search" class="search-input" placeholder="Search products...">
+        <div id="search-dropdown" class="search-dropdown"></div>
+      </div>
+      <div class="nav-links">
+        <a href="/care/">Care</a><a href="/style/">Style</a><a href="/fit/">Fit</a><a href="/space/">Space</a><a href="/pet/">Pet</a>
+      </div>
+      <div class="nav-actions">
+        <a href="/profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
+        <a href="/profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="container flex-center" style="min-height: 70vh; padding: 40px 0;">
+    <div style="width: 100%; max-width: 500px; background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--secondary); padding: 48px; box-shadow: var(--shadow); text-align:center;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:24px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      <h2 class="mb-2">Track Your Order</h2>
+      <p class="text-muted mb-4">Enter your tracking number or Order ID to see real-time updates.</p>
+      
+      <form id="track-form" style="text-align:left;">
+        <div class="form-group mb-4">
+          <label class="form-label">Tracking Number</label>
+          <input type="text" class="form-input" placeholder="e.g. DEL123456789" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Track Package</button>
+      </form>
+      
+      <div id="track-result" style="display:none; margin-top:24px; text-align:left; background:var(--bg); padding:16px; border-radius:var(--radius); border:1px dashed var(--secondary);">
+        <div style="font-weight:600; color:var(--accent-dark); margin-bottom:8px;">Delhivery Integration Ready</div>
+        <p class="text-muted" style="font-size:0.85rem;">This module is configured to accept API responses from the Delhivery system. Tracking events will appear here.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container text-center">
+      <div class="footer-logo">Panto<span style="color:var(--accent);">Mart</span></div>
+      <p style="margin-bottom:24px; font-size:0.9rem; color:rgba(255,255,255,0.5);">Smart products for everyday life.</p>
+      <ul class="footer-links flex-center" style="gap:24px;">
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="/privacy-policy/">Privacy</a></li>
+      </ul>
+      <div class="footer-bottom">&copy; 2026 PantoMart. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script>
+    document.getElementById('track-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('track-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
