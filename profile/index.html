@@ -122,6 +122,7 @@
   <script src="../assets/js/delivery.js"></script>
   <script src="../assets/js/auth.js"></script>
   <script src="../assets/js/tracking.js"></script>
+  <script>
     window.logoutUser = () => {
       try {
         localStorage.removeItem('pantoUser');
@@ -286,6 +287,7 @@
                   <div>
                     <div style="font-weight:600; font-family:'Inter', sans-serif; letter-spacing:0.05em;">Order #${o.id}</div>
                     <div style="font-size:0.85rem; color:var(--muted);">${o.date}</div>
+                    ${o.address ? `<div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Ship to: ${o.address}</div>` : ''}
                   </div>
                   <div style="font-weight:600; color:var(--text); font-size:1.1rem;">${o.total}</div>
                 </div>
@@ -303,6 +305,15 @@
       const coBtn = document.getElementById('checkout-btn');
       if(coBtn) {
         coBtn.addEventListener('click', () => {
+          const userStr = localStorage.getItem('pantoUser');
+          if(!userStr || userStr === 'undefined' || userStr === 'null') {
+            alert('Please login to continue with checkout.');
+            window.location.href = '../login/';
+            return;
+          }
+          const addr = prompt("Please enter your shipping address:");
+          if(!addr) return; // User cancelled
+
           coBtn.textContent = 'Processing Secure Payment...';
           coBtn.disabled = true;
           coBtn.style.opacity = '0.7';
@@ -314,6 +325,7 @@
                 id: 'ORD-' + Math.floor(Math.random()*1000000),
                 date: new Date().toLocaleDateString(),
                 total: document.getElementById('cart-total').textContent,
+                address: addr,
                 items: cart
               };
               orders.unshift(newOrder);

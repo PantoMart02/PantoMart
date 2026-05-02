@@ -23,6 +23,14 @@
     window.$$('.buy-btn').forEach(btn => {
       btn.addEventListener('click', e => {
         e.preventDefault();
+        const userStr = localStorage.getItem('pantoUser');
+        if(!userStr || userStr === 'undefined' || userStr === 'null') {
+          alert('You must be logged in to buy products.');
+          const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
+          window.location.href = rootPath + 'login/';
+          return;
+        }
+
         const cart = getCart();
         const p = { id: btn.dataset.id, name: btn.dataset.name, price: btn.dataset.price, img: btn.dataset.img, url: window.location.pathname };
         if (!cart.find(x => x.id === p.id)) { cart.push(p); setCart(cart); }
@@ -42,6 +50,15 @@
       if (getWish().find(p => p.id === pid)) btn.classList.add('active');
       btn.addEventListener('click', e => {
         e.preventDefault(); e.stopPropagation();
+        
+        const userStr = localStorage.getItem('pantoUser');
+        if(!userStr || userStr === 'undefined' || userStr === 'null') {
+          alert('You must be logged in to save to your wishlist.');
+          const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
+          window.location.href = rootPath + 'login/';
+          return;
+        }
+
         let wish = getWish();
         const idx = wish.findIndex(p => p.id === pid);
         if (idx === -1) {

@@ -129,6 +129,10 @@
             <label class="form-label">Gmail / Email Address</label>
             <input type="email" id="reg-email" class="form-input" placeholder="you@example.com" required>
           </div>
+          <div class="form-group mb-2">
+            <label class="form-label">Mobile Number</label>
+            <input type="tel" id="reg-mobile" class="form-input" placeholder="+1 (555) 000-0000" required>
+          </div>
           <div class="form-group mb-4">
             <label class="form-label">Password</label>
             <input type="password" class="form-input" placeholder="••••••••" required>
@@ -163,6 +167,12 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
+        const userStr = localStorage.getItem('pantoUser');
+        if (userStr && userStr !== 'undefined' && userStr !== 'null') {
+          window.location.href = '../profile/';
+          return;
+        }
+
         const loginView = document.getElementById('login-view');
         const forgotView = document.getElementById('forgot-view');
         const registerView = document.getElementById('register-view');
@@ -210,7 +220,8 @@
             e.preventDefault();
             const username = document.getElementById('reg-username').value;
             const email = document.getElementById('reg-email').value;
-            localStorage.setItem('pantoUser', JSON.stringify({ username, email }));
+            const mobile = document.getElementById('reg-mobile').value;
+            localStorage.setItem('pantoUser', JSON.stringify({ username, email, mobile }));
             window.location.href = '../profile/';
           });
         }
