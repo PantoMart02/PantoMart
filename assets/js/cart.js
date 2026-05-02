@@ -1,8 +1,8 @@
 /* ===== CART & WISHLIST ENGINE ===== */
 (function () {
   'use strict';
-  const getCart = () => JSON.parse(localStorage.getItem('pantoCart') || '[]');
-  const getWish = () => JSON.parse(localStorage.getItem('pantoWishlist') || '[]');
+  const getCart = () => { try { const p = JSON.parse(localStorage.getItem('pantoCart')); return Array.isArray(p) ? p : []; } catch { return []; } };
+  const getWish = () => { try { const p = JSON.parse(localStorage.getItem('pantoWishlist')); return Array.isArray(p) ? p : []; } catch { return []; } };
   const setCart = v => localStorage.setItem('pantoCart', JSON.stringify(v));
   const setWish = v => localStorage.setItem('pantoWishlist', JSON.stringify(v));
   const trackRecent = (product) => {
