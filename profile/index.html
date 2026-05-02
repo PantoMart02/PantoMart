@@ -278,7 +278,7 @@
           const container = document.getElementById('orders');
           let html = '<h2 class="mb-3">Order History</h2>';
           if(orders.length === 0) {
-            html += '<p class="text-muted">You haven\\'t placed any orders yet.</p>';
+            html += '<p class="text-muted">You haven\'t placed any orders yet.</p>';
           } else {
             html += orders.map(o => `
               <div style="background:var(--white); border:1px solid var(--border-color); padding:24px; border-radius:var(--radius); margin-bottom:24px; box-shadow:var(--shadow);">
