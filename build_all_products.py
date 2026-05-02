@@ -240,6 +240,14 @@ product_template = """<!DOCTYPE html>
     </div>
   </section>
 
+  <section class="editorial-banner" style="background-image: url('{img_path}');">
+    <div class="editorial-overlay"></div>
+    <div class="editorial-content">
+      <h2>{hook}</h2>
+      <p>Experience the ultimate in {cat_capitalized} luxury.</p>
+    </div>
+  </section>
+
   <div id="sticky-buy-bar" class="sticky-buy-bar">
     <div style="flex:1;">
       <div style="font-weight:600;font-size:0.9rem;color:var(--white);">{title}</div>
@@ -247,6 +255,15 @@ product_template = """<!DOCTYPE html>
     </div>
     <button class="btn btn-primary buy-btn" data-id="{cat}-{idx}" data-name="{title}" data-price="${price}" data-img="{img_path}">Add to Cart</button>
   </div>
+
+  <section class="container section">
+    <div class="section-head text-center">
+      <h2>Curated Companions</h2>
+    </div>
+    <div class="grid-4" id="related-products-grid">
+      {related_html}
+    </div>
+  </section>
 
   <section class="container section">
     <div class="section-head text-center">
@@ -272,15 +289,6 @@ product_template = """<!DOCTYPE html>
     </div>
     <div style="max-width: 700px; margin: 0 auto;">
       {qna_html}
-    </div>
-  </section>
-
-  <section class="container section">
-    <div class="section-head text-center">
-      <h2>Curated Companions</h2>
-    </div>
-    <div class="grid-4" id="related-products-grid">
-      {related_html}
     </div>
   </section>
 
@@ -457,7 +465,11 @@ for cat_id, data in category_data.items():
         reviews_str, total_revs = generate_reviews()
         real_rev_count = random.randint(320, 850)
         
-        related_subset = random.sample(all_products, 4)
+        same_cat_products = [p for p in all_products if p["cat"] == cat_id and p["idx"] != idx]
+        if len(same_cat_products) >= 4:
+            related_subset = random.sample(same_cat_products, 4)
+        else:
+            related_subset = same_cat_products
         related_html = ""
         for rel in related_subset:
             phrase = random.choice(["Curated Choice", "Signature Piece", "Bespoke Essential"])
