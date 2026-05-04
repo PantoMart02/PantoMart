@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PantoMart | Smart products for everyday life</title>
+  <title>Track Order | PantoMart</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/main.css">
   <link rel="stylesheet" href="./assets/css/product.css">
@@ -29,42 +29,28 @@
       <div class="nav-actions">
         <a href="./profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
         <a href="./profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
-        <a href="./login/" class="nav-icon" title="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
       </div>
     </div>
   </nav>
 
-  <section class="container">
-    <div class="hero">
-      <img src="./assets/images/products/Banner/PantoMart.png" alt="PantoMart Lifestyle" class="hero-img">
-      <div class="hero-content">
-        <div class="hero-tag">Premium Essentials</div>
-        <h1>Elevate your daily routine.</h1>
-        <p>Discover minimal, high-quality products curated for your care, style, and space. Simple choices for better living.</p>
-        <a href="#featured" class="btn btn-accent">Shop Essentials</a>
+  <section class="container flex-center" style="min-height: 70vh; padding: 40px 0;">
+    <div style="width: 100%; max-width: 500px; background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--secondary); padding: 48px; box-shadow: var(--shadow); text-align:center;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:24px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      <h2 class="mb-2">Track Your Order</h2>
+      <p class="text-muted mb-4">Enter your tracking number or Order ID to see real-time updates.</p>
+      
+      <form id="track-form" style="text-align:left;">
+        <div class="form-group mb-4">
+          <label class="form-label">Tracking Number</label>
+          <input type="text" class="form-input" placeholder="e.g. DEL123456789" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Track Package</button>
+      </form>
+      
+      <div id="track-result" style="display:none; margin-top:24px; text-align:left; background:var(--bg); padding:16px; border-radius:var(--radius); border:1px dashed var(--secondary);">
+        <div style="font-weight:600; color:var(--accent-dark); margin-bottom:8px;">Delhivery Integration Ready</div>
+        <p class="text-muted" style="font-size:0.85rem;">This module is configured to accept API responses from the Delhivery system. Tracking events will appear here.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- FEATURED CATEGORIES (ONE PRODUCT PER CATEGORY) -->
-  <section id="featured" class="container section">
-    <div class="section-head text-center">
-      <h2>Curated For You</h2>
-      <p>Our top selections across all essentials.</p>
-    </div>
-
-    <div id="products-container"></div>
-  </section>
-
-  <!-- RECENTLY VIEWED -->
-  <section class="container section">
-    <div class="section-head text-center">
-      <h2>Recently Viewed</h2>
-      <p>Pick up where you left off</p>
-    </div>
-    <div class="grid-4" id="recent-products-grid">
-      <!-- Injected by JS -->
-      <div class="text-center text-muted" style="grid-column: 1 / -1; padding: 40px 0;">No recently viewed products yet. Explore our catalog!</div>
     </div>
   </section>
 
@@ -81,9 +67,7 @@
       <div class="footer-bottom">&copy; 2026 PantoMart. All rights reserved.</div>
     </div>
   </footer>
-  
-  <script src="./js/api.js"></script>
-  <script src="./js/home.js"></script>
+
   <script src="./assets/js/main.js"></script>
   <script src="./assets/js/cart.js"></script>
   <script src="./assets/js/search.js"></script>
@@ -91,23 +75,9 @@
   <script src="./assets/js/auth.js"></script>
   <script src="./assets/js/tracking.js"></script>
   <script>
-    // Load recently viewed
-    document.addEventListener('DOMContentLoaded', () => {
-      const recent = JSON.parse(localStorage.getItem('pantoRecent') || '[]');
-      const grid = document.getElementById('recent-products-grid');
-      if(recent.length > 0 && grid) {
-        grid.innerHTML = recent.map(p => `
-          <div class="card aos">
-            <a href="${p.url}">
-              <div class="card-img-wrap"><img src="${p.img}" alt="${p.name}"></div>
-              <div class="card-body">
-                <div class="card-title">${p.name}</div>
-                <div class="card-price">${p.price}</div>
-              </div>
-            </a>
-          </div>
-        `).join('');
-      }
+    document.getElementById('track-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('track-result').style.display = 'block';
     });
   </script>
 </body>
