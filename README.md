@@ -1,29 +1,81 @@
-# PantoMart Luxury Lifestyle Platform
+# 🛒 PantoMart Luxury Lifestyle Platform
 
 > [!CAUTION]
 > **Not for Production or Actual Work**
 > This codebase is strictly for a start-up proof of concept. Nobody should use this codebase in a real-world scenario or deploy it for actual work.
 
-PantoMart is a premium lifestyle e-commerce platform offering carefully curated products across multiple lifestyle segments. 
+Welcome to **PantoMart**, a premium lifestyle e-commerce platform offering carefully curated products across multiple lifestyle segments. Designed with high-end aesthetics and an immersive user experience, PantoMart categorizes luxury products intuitively, making shopping seamless.
 
-## Overview
-The platform provides a modern and immersive shopping experience featuring high-end aesthetics, semantic architectures, and dynamic product management. Built primarily using HTML, JavaScript, and TailwindCSS (as evidenced by `tailwind.config.js`).
+## ✨ Key Features
+- **Dynamic Product Pages:** Built to be highly SEO-friendly and dynamically managed per lifestyle segment (e.g., `care`, `style`, `fit`, `pet`, `space`).
+- **Responsive & Premium UI:** Crafted using Tailwind CSS with beautiful interactions and animations.
+- **Robust Python Tooling:** A suite of custom Python scripts designed to automate asset generation, validate data structures, patch HTML, and verify data integrity.
+- **Modular Asset Architecture:** Organized asset handling to separate logic, styling, and media for scalability and clarity.
+- **Dedicated Backend:** Local Node.js environment configured for product seeding and mock APIs.
 
-## Project Structure
-This project follows a strict semantic asset architecture:
-- `/assets/`: Contains modular CSS, JS, and Images.
-- **Category Folders**: Folders such as `/care`, `/style`, etc., contain dynamic SEO-friendly product pages.
-- **Core Pages**: Pages like `/about`, `/profile`, `index.html`, `cart.html`, and others are hosted at the root level.
-- **Scripts**: Various Python scripts (e.g., `build_all_products.py`, `update_products.py`) are used for building, patching, checking data integrity, and managing the dynamic backend content.
+## 🛠️ Technology Stack
+- **Frontend:** HTML5, JavaScript (Vanilla/ES6)
+- **Styling:** Tailwind CSS (v3), custom CSS properties
+- **Animations & DOM manipulation:** Framer Motion, JSDOM
+- **Build Tools & Utilities:** Python 3 (custom scripts), Node.js, npm
 
-## Setup and Development
-To install dependencies and start the local development server:
-```bash
-npm install
-npm start # or equivalent depending on package.json scripts
+## 📂 Project Structure
+
+```text
+PantoMart/
+├── assets/             # Modular CSS, JS, and product images
+├── backend/            # Local Node server scripts, database seeds, and APIs
+├── login/              # User authentication flows
+├── contact/            # Support and contact interfaces
+├── index.html          # Main landing page
+├── cart.html           # Shopping cart interface
+├── category.html       # Dynamic category templates
+├── product.html        # Individual product view
+├── profile.html        # User account management
+├── track.html          # Order tracking interface
+└── package.json        # NPM dependencies and project scripts
 ```
 
-Ensure you have run the appropriate python build scripts if you are making changes to product configurations or category templates.
+### ⚙️ Automation Scripts
+The repository is bundled with a powerful set of Python utilities for ongoing maintenance and content management:
+- `build_all_products.py`: Regenerates product data and builds HTML views.
+- `update_products.py`: Batch updates to product listings.
+- `patch_*.py`: Component-specific patching utilities (e.g., `patch_style.py`, `patch_care.py`, `patch_space.py`).
+- `check_*.py`: Diagnostic scripts to verify API keys, data structures, review formats, and image integrity (e.g., `check_images.py`, `check_api_keys.py`).
 
-## Licensing
-Please see the `LICENSE` file for more details regarding the rights and limitations of using this source code.
+## 🚀 Setup & Installation
+
+### Prerequisites
+- [Node.js](https://nodejs.org/en/) (v16 or higher recommended)
+- [Python 3.x](https://www.python.org/downloads/) (for running utility scripts)
+
+### Installation Steps
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/PantoMart02/PantoMart.git
+   cd PantoMart
+   ```
+
+2. **Install Node dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Build Tailwind CSS:**
+   ```bash
+   npm run build:css
+   ```
+   *(To watch for CSS changes during development, run: `npm run watch:css`)*
+
+4. **Serve the project:**
+   You can use any local web server (such as Live Server in VS Code, or Python's `http.server`) to serve the root directory.
+   ```bash
+   python -m http.server 8000
+   ```
+   Navigate to `http://localhost:8000/` in your web browser.
+
+## 📜 License
+Please refer to the `LICENSE` file at the root of the project for distribution terms and limitations.
+
+---
+*Document formally created on June 26, 2026.*
