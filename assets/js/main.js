@@ -25,9 +25,24 @@
     });
   }
 
+  /* ---------- SCROLL REVEAL ---------- */
+  function initScrollReveal() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { 
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    window.$$('.reveal-box').forEach(el => obs.observe(el));
+  }
+  window.initScrollReveal = initScrollReveal;
+
   document.addEventListener('DOMContentLoaded', () => {
     initAOS();
     initGallery();
+    initScrollReveal();
   });
 })();
 

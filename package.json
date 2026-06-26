@@ -1,0 +1,32 @@
+{
+  "name": "pantomart",
+  "version": "1.0.0",
+  "description": "PantoMart is a premium lifestyle e-commerce platform offering carefully curated products across multiple lifestyle segments.",
+  "main": "fixed_bg_fn.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/tailwind.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PantoMart02/PantoMart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PantoMart02/PantoMart/issues"
+  },
+  "homepage": "https://github.com/PantoMart02/PantoMart#readme",
+  "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "framer-motion": "^12.38.0",
+    "jsdom": "^29.1.1"
+  }
+}

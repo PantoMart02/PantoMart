@@ -1,112 +1,213 @@
-/* ===== CART & WISHLIST ENGINE ===== */
-(function () {
-  'use strict';
-  const getCart = () => { try { const p = JSON.parse(localStorage.getItem('pantoCart')); return Array.isArray(p) ? p : []; } catch { return []; } };
-  const getWish = () => { try { const p = JSON.parse(localStorage.getItem('pantoWishlist')); return Array.isArray(p) ? p : []; } catch { return []; } };
-  const setCart = v => localStorage.setItem('pantoCart', JSON.stringify(v));
-  const setWish = v => localStorage.setItem('pantoWishlist', JSON.stringify(v));
-  const trackRecent = (product) => {
-    let rawP = String(product.price).replace(/[$₹, ]/g, '');
-    let numP = parseFloat(rawP) || 0;
-    if (String(product.price).includes('$')) numP = Math.round(numP * 83);
-    if (numP > 0) product.price = '₹' + numP.toLocaleString('en-IN', {maximumFractionDigits:0});
+﻿const CART_KEY = 'pantoCart';
 
-    const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
-    product.img = rootPath + String(product.img).replace(/^(\.\.\/|\.\/)+/, '');
-    product.url = rootPath + String(product.url).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '');
-
-    let recent = JSON.parse(localStorage.getItem('pantoRecent') || '[]');
-    recent = recent.filter(p => p.id !== product.id && p.name !== product.name);
-    recent.unshift(product);
-    if (recent.length > 8) recent = recent.slice(0, 8);
-    localStorage.setItem('pantoRecent', JSON.stringify(recent));
-  };
-
-  function updateBadges() {
-    window.$$ && window.$$('#cart-badge').forEach(el => el.textContent = getCart().length);
-    window.$$ && window.$$('#wish-badge').forEach(el => el.textContent = getWish().length);
-  }
-
-  function initBuyButtons() {
-    if(!window.$$) return;
-    window.$$('.buy-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        const userStr = localStorage.getItem('pantoUser');
-        if(!userStr || userStr === 'undefined' || userStr === 'null') {
-          alert('You must be logged in to buy products.');
-          const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
-          window.location.href = rootPath + 'login/';
-          return;
-        }
-
-        const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
-        const cart = getCart();
-        const p = { 
-          id: btn.dataset.id, 
-          name: btn.dataset.name, 
-          price: btn.dataset.price, 
-          img: rootPath + String(btn.dataset.img).replace(/^(\.\.\/|\.\/)+/, ''), 
-          url: rootPath + String(window.location.pathname).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '') 
-        };
-        if (!cart.find(x => x.id === p.id)) { cart.push(p); setCart(cart); }
-        updateBadges();
-        const orig = btn.textContent;
-        btn.textContent = '✓ Added';
-        btn.style.background = '#2ecc71';
-        setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2000);
-      });
-    });
-  }
-
-  function initWishButtons() {
-    if(!window.$$) return;
-    window.$$('.wish-btn').forEach(btn => {
-      const pid = btn.dataset.id;
-      if (getWish().find(p => p.id === pid)) btn.classList.add('active');
-      btn.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        
-        const userStr = localStorage.getItem('pantoUser');
-        if(!userStr || userStr === 'undefined' || userStr === 'null') {
-          alert('You must be logged in to save to your wishlist.');
-          const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
-          window.location.href = rootPath + 'login/';
-          return;
-        }
-
-        let wish = getWish();
-        const rootPath = window.location.pathname.includes('/PantoMart/') ? '/PantoMart/' : '/';
-        const pUrl = btn.dataset.url ? rootPath + String(btn.dataset.url).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '') : rootPath + String(window.location.pathname).replace(/^(\.\.\/|\.\/)+/, '').replace(/^\//, '');
-        const pImg = rootPath + String(btn.dataset.img).replace(/^(\.\.\/|\.\/)+/, '');
-
-        const idx = wish.findIndex(p => p.id === pid);
-        if (idx === -1) {
-          wish.push({ id: pid, name: btn.dataset.name, price: btn.dataset.price, img: pImg, url: pUrl });
-          btn.classList.add('active');
-        } else {
-          wish.splice(idx, 1);
-          btn.classList.remove('active');
-        }
-        setWish(wish);
-        updateBadges();
-      });
-    });
-  }
-
-  function trackCurrentProduct() {
-    if(!window.$) return;
-    const titleEl = window.$('h1.product-title');
-    const pid = document.body.dataset.productId;
-    if (titleEl && pid) {
-      trackRecent({ id: pid, name: titleEl.textContent, price: window.$('.product-price-val')?.textContent || '', img: window.$('#main-product-image')?.src || '', url: window.location.pathname });
+// ðŸ“¦ GET CART
+function getCart() {
+    try {
+        const cart = JSON.parse(localStorage.getItem(CART_KEY));
+        return Array.isArray(cart) ? cart : [];
+    } catch {
+        return [];
     }
-  }
+}
 
-  document.addEventListener('DOMContentLoaded', () => {
-    updateBadges();
-    initBuyButtons();
-    initWishButtons();
-    trackCurrentProduct();
-  });
-})();
+// ðŸ’¾ SET CART
+function setCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartBadges();
+}
+
+// âž• ADD TO CART
+function addToCart(product) {
+    if (!product || !product._id) return;
+
+    const cart = getCart();
+    const existing = cart.find(item => item._id === product._id);
+
+    if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+    } else {
+        cart.push({
+            _id: product._id,
+            name: product.name || "Product",
+            price: Number(product.price) || 0,
+            image: product.image || './assets/images/placeholder.jpg',
+            qty: 1
+        });
+    }
+
+    setCart(cart);
+}
+
+// âž– REMOVE ITEM
+function removeFromCart(id) {
+    let cart = getCart();
+    cart = cart.filter(item => item._id !== id);
+    setCart(cart);
+    renderCartPage();
+}
+
+// ðŸ”„ UPDATE QTY (NEW)
+function updateQuantity(id, change) {
+    const cart = getCart();
+
+    const item = cart.find(i => i._id === id);
+    if (!item) return;
+
+    item.qty = (item.qty || 1) + change;
+
+    if (item.qty <= 0) {
+        removeFromCart(id);
+        return;
+    }
+
+    setCart(cart);
+    renderCartPage();
+}
+
+// ðŸ”¢ CART BADGE
+function updateCartBadges() {
+    const cart = getCart();
+
+    const count = cart.reduce(
+        (sum, item) => sum + (item.qty || 1),
+        0
+    );
+
+    document.querySelectorAll('#cart-badge')
+        .forEach(el => (el.textContent = count));
+}
+
+// ðŸ›’ RENDER CART PAGE
+function renderCartPage() {
+    const container = document.getElementById('cart-container');
+    if (!container) return;
+
+    const cart = getCart();
+
+    // âŒ Empty
+    if (!cart || cart.length === 0) {
+        container.innerHTML = `
+      <div class="text-center text-muted" style="padding:40px 0;">
+        Your cart is empty.<br>
+        <a href="index.html" class="btn btn-primary mt-4">
+          Continue Shopping
+        </a>
+      </div>
+    `;
+        return;
+    }
+
+    let total = 0;
+    let htmlBuffer = `<div class="cart-items-list" style="max-width:800px;margin:0 auto;">`;
+
+    cart.forEach(item => {
+        if (!item || !item._id) return;
+
+        const price = Number(item.price) || 0;
+        const qty = item.qty || 1;
+        const image = item.image || './assets/images/placeholder.jpg';
+
+        total += price * qty;
+
+        htmlBuffer += `
+      <div class="cart-item flex-between"
+        style="padding:16px;border-bottom:1px solid var(--border-color);align-items:center;">
+        
+        <div class="flex" style="align-items:center;gap:16px;">
+          <img loading="lazy"
+            src="${image}"
+            alt="${item.name}"
+            style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
+          
+          <div>
+            <h4 style="margin:0 0 8px 0;">${item.name}</h4>
+            <div style="color:var(--accent);font-weight:600;">â‚¹${price}</div>
+
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
+              <button class="qty-btn" data-id="${item._id}" data-change="-1">âˆ’</button>
+              <span>${qty}</span>
+              <button class="qty-btn" data-id="${item._id}" data-change="1">+</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline text-muted remove-btn"
+          data-id="${item._id}">
+          Remove
+        </button>
+      </div>
+    `;
+    });
+
+    htmlBuffer += `
+    <div class="cart-total flex-between"
+      style="padding:24px 16px;margin-top:24px;font-size:1.2rem;font-weight:600;border-top:2px solid var(--border-color);">
+      
+      <span>Total:</span>
+      <span style="color:var(--accent);">â‚¹${total.toLocaleString('en-IN')}</span>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-primary btn-full"
+        style="max-width:400px;"
+        onclick="alert('Checkout integration pending')">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>`;
+
+    container.innerHTML = htmlBuffer;
+}
+
+// ðŸ§  GLOBAL EVENTS (CLEAN DELEGATION)
+document.addEventListener('click', (e) => {
+
+    // âž• Add to cart
+    const buyBtn = e.target.closest('.buy-btn');
+    if (buyBtn) {
+        e.preventDefault();
+
+        const product = {
+            _id: buyBtn.dataset.id,
+            name: buyBtn.dataset.name,
+            price: buyBtn.dataset.price,
+            image: buyBtn.dataset.img
+        };
+
+        addToCart(product);
+
+        // âœ… Feedback
+        const original = buyBtn.textContent;
+        buyBtn.textContent = 'âœ“ Added';
+        buyBtn.disabled = true;
+
+        setTimeout(() => {
+            buyBtn.textContent = original;
+            buyBtn.disabled = false;
+        }, 1200);
+    }
+
+    // âž– Remove
+    const removeBtn = e.target.closest('.remove-btn');
+    if (removeBtn) {
+        e.preventDefault();
+        removeFromCart(removeBtn.dataset.id);
+    }
+
+    // ðŸ”„ Quantity
+    const qtyBtn = e.target.closest('.qty-btn');
+    if (qtyBtn) {
+        e.preventDefault();
+
+        const id = qtyBtn.dataset.id;
+        const change = Number(qtyBtn.dataset.change);
+
+        updateQuantity(id, change);
+    }
+});
+
+// ðŸš€ INIT
+function initCart() {
+    updateCartBadges();
+    renderCartPage();
+}

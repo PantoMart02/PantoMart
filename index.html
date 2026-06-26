@@ -1,111 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PantoMart | Smart products for everyday life</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>PantoMart | Elevate Every Moment</title>
+  <link rel="stylesheet" href="./assets/css/tailwind.css">
   <link rel="stylesheet" href="./assets/css/main.css">
-  <link rel="stylesheet" href="./assets/css/product.css">
+  <meta name="description" content="PantoMart — Curated luxury for your skin, body, style, and home. Discover intentional living.">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet"/>
+  <!-- Apply saved theme before render -->
+  <script src="./assets/js/theme.js"></script>
 </head>
-<body>
+<body class="font-body-md text-body-md selection:bg-secondary-container">
 
-  <!-- MANDATORY BANNER -->
-  <div class="site-banner">
-    <strong>PantoMart</strong> | <span>Smart products for everyday life</span>
+  <!-- Announcement Bar -->
+  <div class="w-full bg-primary text-on-primary text-center py-2.5 text-[11px] uppercase tracking-[0.2em] font-body-md">
+    PantoMart &nbsp;—&nbsp; <span class="opacity-70">Smart products for intentional everyday life</span>
   </div>
 
-  <nav class="navbar">
-    <div class="container flex-between">
-      <a href="./" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">Mart</span></a>
-      <div class="search-wrap">
-        <svg class="search-icon-pos" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="global-search" class="search-input" placeholder="Search products...">
+  <!-- Top Navigation Bar -->
+  <header class="fixed top-[41px] w-full z-50 flex justify-between items-center px-margin-page py-unit-base bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 transition-colors duration-200">
+    <a href="index.html" class="text-headline-lg font-headline-lg tracking-tight text-primary">PantoMart</a>
+    <nav class="flex items-center gap-3 md:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap px-4">
+      <a class="px-6 py-2 border border-outline-variant/50 rounded-full text-secondary font-label-sm uppercase tracking-[0.15em] text-xs hover:text-primary hover:border-primary hover:bg-surface-container hover:shadow-md transition-all duration-500 bg-surface/50 backdrop-blur-sm" href="category.html?cat=care">Care</a>
+      <a class="px-6 py-2 border border-outline-variant/50 rounded-full text-secondary font-label-sm uppercase tracking-[0.15em] text-xs hover:text-primary hover:border-primary hover:bg-surface-container hover:shadow-md transition-all duration-500 bg-surface/50 backdrop-blur-sm" href="category.html?cat=fit">Fit</a>
+      <a class="px-6 py-2 border border-outline-variant/50 rounded-full text-secondary font-label-sm uppercase tracking-[0.15em] text-xs hover:text-primary hover:border-primary hover:bg-surface-container hover:shadow-md transition-all duration-500 bg-surface/50 backdrop-blur-sm" href="category.html?cat=style">Style</a>
+      <a class="px-6 py-2 border border-outline-variant/50 rounded-full text-secondary font-label-sm uppercase tracking-[0.15em] text-xs hover:text-primary hover:border-primary hover:bg-surface-container hover:shadow-md transition-all duration-500 bg-surface/50 backdrop-blur-sm" href="category.html?cat=space">Space</a>
+      <a class="px-6 py-2 border border-outline-variant/50 rounded-full text-secondary font-label-sm uppercase tracking-[0.15em] text-xs hover:text-primary hover:border-primary hover:bg-surface-container hover:shadow-md transition-all duration-500 bg-surface/50 backdrop-blur-sm" href="category.html?cat=pet">Pet</a>
+    </nav>
+    <div class="flex items-center gap-5">
+      <div class="relative hidden sm:block">
+        <input type="text" id="global-search" placeholder="Search..." class="bg-surface-container-low border border-outline-variant/30 rounded-full px-4 py-1 text-sm focus:outline-none focus:border-primary transition-colors">
         <div id="search-dropdown" class="search-dropdown"></div>
       </div>
-      <div class="nav-links">
-        <a href="./care/">Care</a><a href="./style/">Style</a><a href="./fit/">Fit</a><a href="./space/">Space</a><a href="./pet/">Pet</a>
+      <!-- Dark / Light Toggle -->
+      <button data-theme-toggle aria-label="Toggle dark mode"
+        class="w-8 h-8 flex items-center justify-center rounded-full border border-outline-variant/40 text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-200">
+        <span class="material-symbols-outlined text-[17px]" data-sun style="font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 20">light_mode</span>
+        <span class="material-symbols-outlined text-[17px]" data-moon style="display:none;font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 20">dark_mode</span>
+      </button>
+      <a href="./profile/#cart" class="relative group">
+        <span class="material-symbols-outlined text-primary">shopping_cart</span>
+        <span id="cart-badge" class="absolute -top-2 -right-2 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+      </a>
+      <a href="./login/" class="group">
+        <span class="material-symbols-outlined text-primary">person</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="mt-[101px]">
+    <!-- Hero Section -->
+    <section class="relative h-[80vh] flex items-center justify-center overflow-hidden px-margin-page">
+      <div class="absolute inset-0 z-0">
+        <div class="w-full h-full parallax-bg" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0tPmG4YmcQqGq9kgkD5oL0FIVnFTB3FTVRQQyGkPjIaRyqPjXvwQ4v-BwZQRZ21-HxysJHnlMHPCfJPWfmedwTsAMQHT3YnIePahzqfeokcDQZaq_jUkFP4pS6KYqZ9E1jeyIwZQFF21QzuLE-p2ny2puXaNSkxO3OZfmP322zANmyWZ6TdQqDLrf9nzgCA7XDzvz1inwxZtpdGBwFuD5oWLtef9fY1e5EFZ-XyXNMBilnEzNV7x66V5SeoHGZlKumvSHi0iumvj4');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
       </div>
-      <div class="nav-actions">
-        <a href="./profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
-        <a href="./profile/#cart" class="nav-icon" title="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><div class="badge" id="cart-badge">0</div></a>
-        <a href="./login/" class="nav-icon" title="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+      <div class="relative z-10 text-center max-w-3xl bg-surface/90 shadow-2xl p-12 rounded-lg">
+        <h1 class="font-display-xl text-display-xl text-primary mb-6">Elevate Every Moment</h1>
+        <p class="font-body-lg text-body-lg text-secondary mb-10">Curated luxury for your skin, body, and home. Discover a sanctuary of intentional living.</p>
+        <a class="inline-block px-10 py-4 border border-primary text-primary font-headline-md hover:bg-primary hover:text-surface transition-all duration-300 uppercase tracking-widest text-sm" href="#categories">Explore Collections</a>
       </div>
-    </div>
-  </nav>
+    </section>
 
-  <section class="container">
-    <div class="hero">
-      <img src="./assets/images/products/Banner/PantoMart.png" alt="PantoMart Lifestyle" class="hero-img">
-      <div class="hero-content">
-        <div class="hero-tag">Premium Essentials</div>
-        <h1>Elevate your daily routine.</h1>
-        <p>Discover minimal, high-quality products curated for your care, style, and space. Simple choices for better living.</p>
-        <a href="#featured" class="btn btn-accent">Shop Essentials</a>
+    <!-- The Collections Grid -->
+    <section class="py-section-padding px-margin-page max-w-container-max mx-auto" id="categories">
+      <div class="mb-12">
+        <span class="text-label-sm font-label-sm uppercase tracking-[0.25em] text-secondary block mb-2">Explore</span>
+        <h2 class="font-headline-lg text-headline-lg text-primary">The Collections</h2>
       </div>
-    </div>
-  </section>
+      <div class="grid grid-cols-1 md:grid-cols-6 gap-gutter">
+        <!-- Skincare -->
+        <a href="category.html?cat=care" class="md:col-span-4 h-[500px] relative group overflow-hidden border border-outline-variant/30">
+          <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZd4miMoKRC-mnGXqHmj2cRiff-22I4bBMErtayQjA2L1zmZgBLN5a7pnHhVmHAc9JfJGb07UdSFEmxWq1c9buIR7JmH5-xJbzzEd0Yuf37MXV1XQ5Rc8ulYUW9aIGnEMrMyclFvzR0MFg9Sxkc36cJAL9Hdi6YVEhADLFrv7dTWpeA_4zAkotFYbetqxKLFyrAXxkIr6DA7UdxEcj3PV-mRQuFjQhkJ68BWmyLezKsfFAz8Q5oX7ydPLH2uZrNO7PV57rGJ7qDs4u'); background-size: cover; background-position: center;"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-10 left-10 text-white">
+            <h3 class="font-headline-lg text-headline-lg mb-2">Care</h3>
+            <p class="font-label-sm text-label-sm uppercase tracking-widest opacity-80">Pure Radiance</p>
+          </div>
+        </a>
+        <!-- Fit -->
+        <a href="category.html?cat=fit" class="md:col-span-2 h-[500px] relative group overflow-hidden border border-outline-variant/30">
+          <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCrnHdcU4dFoOJJMhfWeT0zvGFytXsAuDTLQJT2o_n4RfS4MlV7tK1NwLrNf2_PdIdgbWil_DwfN0dlFRT--45iGTjBfXfIV6FCMTMFZQlrdexeP4NGXQPoxBCjCMxwDFHDWytZo3HEM7aMMXFsHEZ4KEu-jARiB1QUS_RYpVKnpuFkK0quOWToaysWsyUWxEHJpzggYn63Adeo5UvoMC-H-HTkSaGQg_PAteclVgoCsP9yogsyepVV_-vpUj2-p9odZFpL5iyI1DIh'); background-size: cover; background-position: center;"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-10 left-10 text-white">
+            <h3 class="font-headline-lg text-headline-lg mb-2">Fit</h3>
+            <p class="font-label-sm text-label-sm uppercase tracking-widest opacity-80">Strength &amp; Flow</p>
+          </div>
+        </a>
+        <!-- Style -->
+        <a href="category.html?cat=style" class="md:col-span-2 h-[500px] relative group overflow-hidden border border-outline-variant/30">
+          <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCXIyWx7gjVLlRSG1EW6WJfPgiw4EaWeiSZIrbcPs_2T4Mo1pF4CRhMnJlkvF0ucRS0VXPGUKVht2zi2XaWhjqDDdwpNh6zDQsfF2f6vveQNQGtb7AIvaGXHKZXNt-2TC0F-krFYDVe1s7r9nHDTvSOXgyDCJgY2EJZbOiR518tjBKJhcuWU2Ltsg5xSTtrueXP0eAoU12uTMSYQ7ffGncqy2ZL9reAIlI6VZkUiR_WuMf5X86yU8X-kXaMR9liTbaWOYT8O2dYq3I_'); background-size: cover; background-position: center;"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-10 left-10 text-white">
+            <h3 class="font-headline-lg text-headline-lg mb-2">Style</h3>
+            <p class="font-label-sm text-label-sm uppercase tracking-widest opacity-80">Timeless Grace</p>
+          </div>
+        </a>
+        <!-- Space -->
+        <a href="category.html?cat=space" class="md:col-span-2 h-[500px] relative group overflow-hidden border border-outline-variant/30">
+          <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuADphJPhZ1xrgc0XNfumDGAGe62B4__Pr20HN42yhrcqSlrAavKjbRluzPuod30p4srfccNJrEiYmeoXIi6IX0sTpnGxetztdpq-FsC_6i_Ze7mkHikVPYvLZOD_MS4QqVLgQBuLUCqcvV8XVlkXnSs6DEXr3ffNvxvSnba8Diq2l6Oe9BEOjSspEsW__7NixkwVeb9R6sUDWwVqc3NVxkC9JgMnhR57xJWzQyXfFZX7moWVSshjrLETnL26wHBlh4bKqlWQbntyDpA'); background-size: cover; background-position: center;"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-10 left-10 text-white">
+            <h3 class="font-headline-lg text-headline-lg mb-2">Space</h3>
+            <p class="font-label-sm text-label-sm uppercase tracking-widest opacity-80">Refined Living</p>
+          </div>
+        </a>
+        <!-- Pet -->
+        <a href="category.html?cat=pet" class="md:col-span-2 h-[500px] relative group overflow-hidden border border-outline-variant/30">
+          <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgWL4Mnn3AEFGA6CwIifMccSfTgQr1tcBjUuhjG2wfiDPlRmaahcKcjp9pyoMZ2jqc44fpXJKQE_-CG0ll4LtJYB22X0tHNdgQhPZjsQ0ptef0RFehOc_DpIVjUw9j3H_QWdziuwkYkf-2rRjTD4vLnHc0waXZ82Gxs78p_xptQfecZhTbN9SWcdMbC6wkfIuaZgNLhHdR9PalxhgDeXu3N5jMrnYLloSXLFIkU9JUBrCTuHuz1Sh-cAxhe8t8_U-2i5bHILmHJAVw'); background-size: cover; background-position: center;"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-10 left-10 text-white">
+            <h3 class="font-headline-lg text-headline-lg mb-2">Pet</h3>
+            <p class="font-label-sm text-label-sm uppercase tracking-widest opacity-80">Curated Comfort</p>
+          </div>
+        </a>
+      </div>
+    </section>
 
-  <!-- FEATURED CATEGORIES (ONE PRODUCT PER CATEGORY) -->
-  <section id="featured" class="container section">
-    <div class="section-head text-center">
-      <h2>Curated For You</h2>
-      <p>Our top selections across all essentials.</p>
-    </div>
+    <!-- The Edit: Featured Pieces -->
+    <section class="py-section-padding bg-surface-container-low border-y border-outline-variant/20">
+      <div class="max-w-container-max mx-auto px-margin-page">
+        <div class="flex justify-between items-end mb-16">
+          <div>
+            <span class="text-label-sm font-label-sm text-secondary uppercase tracking-[0.2em] mb-2 block">Seasonal Curation</span>
+            <h2 class="font-headline-lg text-headline-lg text-primary">The Edit</h2>
+          </div>
+          <a class="text-label-sm font-label-sm text-primary underline underline-offset-8 uppercase tracking-widest hover:opacity-70 transition-opacity" href="#">View All</a>
+        </div>
+        <div id="products-container" class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          <div class="col-span-full py-20 text-center text-secondary opacity-50">Assembling the curation...</div>
+        </div>
+      </div>
+    </section>
 
-    <div id="products-container"></div>
-  </section>
+    <!-- Trust Section -->
+    <section class="py-section-padding px-margin-page max-w-container-max mx-auto text-center">
+      <div class="max-w-2xl mx-auto border-t border-outline-variant/30 pt-16">
+        <span class="text-label-sm font-label-sm text-secondary uppercase tracking-[0.3em] mb-4 block">The PantoMart Standard</span>
+        <h2 class="font-display-xl text-display-xl text-primary mb-12">Quality, Integrity, Lifestyle.</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter text-left">
+          <div>
+            <h5 class="font-label-sm text-label-sm text-primary uppercase mb-2">Unmatched Craft</h5>
+            <p class="text-on-surface-variant text-sm">We partner exclusively with artisans who prioritize heritage and precision above mass production.</p>
+          </div>
+          <div>
+            <h5 class="font-label-sm text-label-sm text-primary uppercase mb-2">Sustainably Sourced</h5>
+            <p class="text-on-surface-variant text-sm">Every material and ingredient is traced to ensure a positive impact on both you and the earth.</p>
+          </div>
+          <div>
+            <h5 class="font-label-sm text-label-sm text-primary uppercase mb-2">Concierge Curation</h5>
+            <p class="text-on-surface-variant text-sm">Our experts hand-select each piece to ensure it elevates your environment and personal brand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- RECENTLY VIEWED -->
-  <section class="container section">
-    <div class="section-head text-center">
-      <h2>Recently Viewed</h2>
-      <p>Pick up where you left off</p>
-    </div>
-    <div class="grid-4" id="recent-products-grid">
-      <!-- Injected by JS -->
-      <div class="text-center text-muted" style="grid-column: 1 / -1; padding: 40px 0;">No recently viewed products yet. Explore our catalog!</div>
-    </div>
-  </section>
+    <!-- Lifestyle Section -->
+    <section class="py-section-padding px-margin-page bg-surface-container-highest">
+      <div class="max-w-container-max mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+          <div class="w-full md:w-1/2">
+            <img class="w-full h-[600px] object-cover rounded-lg shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1HpnnqyOKQgFH4RoYvcJwja9dKqssRN5GQ_r39_pdhHfdsl40dnRIddHiAcAyLtvWXlqUPwzI38DFY47ZONYN8QoSjn2zLDfVQJZMDjHFx5rWEZa2gccHqq1xA5o90783-CPSXhWZGP9Bf34YRy8ieufEaUqwFtXKwfGXe4S7gneT4_AJv_Tv6tG_wxRxj_kv95C5xvRmAPwIml7ZsIZHhyZgB5odTnV-xCWi53FU8MSARPJN7K3MoYmhr88TovvCL5uhDYrRa8QC"/>
+          </div>
+          <div class="w-full md:w-1/2 space-y-8">
+            <span class="text-label-sm font-label-sm text-on-secondary-container uppercase tracking-widest">Our Philosophy</span>
+            <h2 class="font-display-xl text-display-xl text-primary leading-tight">Living with <br/>Intentionality.</h2>
+            <p class="font-body-lg text-body-lg text-secondary">PantoMart isn't just a destination for luxury goods; it's a guide to a more thoughtful way of existing. We believe your surroundings and self-care rituals define your peace of mind.</p>
+            <a class="inline-flex items-center gap-4 text-primary font-bold uppercase tracking-widest text-xs hover:gap-6 transition-all" href="./about/">
+              Read the Brand Story <span class="material-symbols-outlined">arrow_right_alt</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <footer class="footer">
-    <div class="container text-center">
-      <div class="footer-logo">Panto<span style="color:var(--accent);">Mart</span></div>
-      <p style="margin-bottom:24px; font-size:0.9rem; color:rgba(255,255,255,0.5);">Smart products for everyday life.</p>
-      <ul class="footer-links flex-center" style="gap:24px;">
-        <li><a href="./about/">About Us</a></li>
-        <li><a href="./contact/">Contact</a></li>
-        <li><a href="./terms/">Terms</a></li>
-        <li><a href="./privacy-policy/">Privacy</a></li>
-      </ul>
-      <div class="footer-bottom">&copy; 2026 PantoMart. All rights reserved.</div>
+    <!-- Recently Viewed -->
+    <section id="recently-viewed" class="py-section-padding px-margin-page max-w-container-max mx-auto hidden">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <span class="text-label-sm font-label-sm text-secondary uppercase tracking-[0.2em] mb-2 block">Resume Exploration</span>
+          <h2 class="font-headline-lg text-headline-lg text-primary">Recently Viewed</h2>
+        </div>
+      </div>
+      <div id="recent-products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-gutter">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-[120px] px-margin-page text-center border-t border-outline-variant/20">
+      <div class="max-w-2xl mx-auto space-y-8">
+        <span class="text-label-sm font-label-sm text-secondary uppercase tracking-[0.25em] block">An Invitation</span>
+        <h2 class="font-display-xl text-display-xl text-primary">Experience the Collection.</h2>
+        <p class="font-body-md text-secondary">Each piece is selected for those who refuse to compromise on the quality of their everyday.</p>
+        <a href="#categories" class="inline-block px-10 py-4 border border-primary text-primary font-body-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest text-xs">Discover Now</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-section-padding px-margin-page flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto bg-surface border-t border-outline-variant/20">
+    <div class="space-y-6 max-w-sm">
+      <div class="text-headline-md font-headline-md text-primary">PantoMart</div>
+      <p class="text-on-surface-variant text-sm leading-relaxed">
+        Curating the world's most intentional products for those who value quality above all else. Welcome to the gallery of living.
+      </p>
+      <div class="text-label-sm text-on-surface-variant">© 2026 PantoMart. Curated with intentionality.</div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-12">
+      <div class="flex flex-col gap-4">
+        <span class="text-label-sm font-bold uppercase tracking-widest text-primary">Explore</span>
+        <a class="text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-x-1" href="./about/">Brand Story</a>
+        <a class="text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-x-1" href="#">Sustainability</a>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="text-label-sm font-bold uppercase tracking-widest text-primary">Support</span>
+        <a class="text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-x-1" href="#">Shipping</a>
+        <a class="text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-x-1" href="./terms/">Returns</a>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="text-label-sm font-bold uppercase tracking-widest text-primary">Connect</span>
+        <a class="text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-x-1" href="./contact/">Contact</a>
+        <a class="text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-x-1" href="#">Instagram</a>
+      </div>
     </div>
   </footer>
-  
-  <script src="./js/api.js"></script>
-  <script src="./js/home.js"></script>
+
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/home.js?v=3"></script>
   <script src="./assets/js/main.js"></script>
   <script src="./assets/js/cart.js"></script>
   <script src="./assets/js/search.js"></script>
   <script src="./assets/js/delivery.js"></script>
   <script src="./assets/js/auth.js"></script>
   <script src="./assets/js/tracking.js"></script>
+  <script src="./assets/js/theme.js"></script>
   <script>
     // Load recently viewed
     document.addEventListener('DOMContentLoaded', () => {
       const recent = JSON.parse(localStorage.getItem('pantoRecent') || '[]');
       const grid = document.getElementById('recent-products-grid');
+      const section = document.getElementById('recently-viewed');
       if(recent.length > 0 && grid) {
+        section.classList.remove('hidden');
         grid.innerHTML = recent.map(p => `
-          <div class="card aos">
-            <a href="${p.url}">
-              <div class="card-img-wrap"><img src="${p.img}" alt="${p.name}"></div>
-              <div class="card-body">
-                <div class="card-title">${p.name}</div>
-                <div class="card-price">${p.price}</div>
-              </div>
-            </a>
-          </div>
+          <a href="${p.url}" class="flex flex-col group animate-fade-in">
+            <div class="aspect-[4/5] overflow-hidden bg-surface-container-low mb-4 border border-outline-variant/10 relative">
+              <img src="${p.img}" alt="${p.name}" class="w-full h-full object-contain p-6 group-hover:scale-105 transition-all duration-700">
+            </div>
+            <h4 class="font-headline-md text-base mb-1 text-primary">${p.name}</h4>
+            <span class="font-body-md text-primary font-medium">₹${Number(p.price.replace(/[^\d.]/g,'')).toLocaleString('en-IN')}</span>
+          </a>
         `).join('');
       }
     });

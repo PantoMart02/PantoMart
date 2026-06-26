@@ -440,6 +440,11 @@ p { line-height: 1.8; color: var(--muted); }
 }
 .aos.visible { opacity: 1; transform: none; }
 
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }

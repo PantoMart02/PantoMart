@@ -1,263 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | PantoMart</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Sign In | PantoMart</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
   <link rel="stylesheet" href="../assets/css/main.css">
-  <link rel="stylesheet" href="../assets/css/product.css">
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
-    body { background: #0a0a0a; color: #fff; }
-    .login-container {
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: #f9f9f9;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top right, rgba(200, 169, 126, 0.15), transparent 50%),
-                  radial-gradient(circle at bottom left, rgba(200, 169, 126, 0.1), transparent 50%),
-                  #0a0a0a;
+      overflow: hidden;
       position: relative;
     }
-    .glass-panel {
-      width: 100%; max-width: 440px;
-      background: rgba(25, 25, 25, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 48px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
-      position: relative;
+
+    /* ── Background Layer ── */
+    .bg-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .bg-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.82;
+      mix-blend-mode: multiply;
+    }
+    .bg-texture {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
       z-index: 2;
+      background: linear-gradient(to top right, rgba(255,255,255,0.35), rgba(255,255,255,0.08));
     }
-    .form-input {
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
+
+    /* ── Login Card ── */
+    .login-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 16px;
+      background: #ffffff;
+      border: 1px solid #e9c349;
+      padding: 48px;
     }
-    .form-input:focus { border-color: var(--accent); background: rgba(0,0,0,0.6); }
-    .form-input::placeholder { color: rgba(255,255,255,0.3); }
-    .form-label { color: rgba(255,255,255,0.7); }
-    h2 { color: #fff; font-family: 'Playfair Display', serif; }
-    .text-muted { color: rgba(255,255,255,0.5) !important; }
-    .btn-primary { background: var(--accent); color: #000; font-weight: 600; border: none; }
-    .btn-primary:hover { background: #b5952f; }
-    .g_id_signin { filter: invert(0.9) hue-rotate(180deg); opacity: 0.9; }
+
+    /* ── Branding ── */
+    .brand-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 48px;
+      line-height: 56px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #000000;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .brand-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #4c4546;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    /* ── Form ── */
+    .form-group {
+      margin-bottom: 32px;
+    }
+    .form-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .input-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #1b1b1b;
+    }
+    .input-forgot {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #4c4546;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .input-forgot:hover { color: #e9c349; }
+
+    .input-field {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #000000;
+      border-radius: 0;
+      background: transparent;
+      padding: 10px 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: 18px;
+      line-height: 28px;
+      color: #000000;
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .input-field::placeholder { color: rgba(76,69,70,0.5); }
+    .input-field:focus { border-bottom-color: #e9c349; }
+
+    /* ── Error Message ── */
+    #auth-error {
+      background: #ffdad6;
+      color: #93000a;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: 'Manrope', sans-serif;
+      margin-bottom: 24px;
+      border-left: 3px solid #ba1a1a;
+    }
+    #auth-error.hidden { display: none; }
+
+    /* ── Submit Button ── */
+    .submit-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #e9c349;
+      color: #241a00;
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 16px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: opacity 0.25s;
+      margin-top: 16px;
+    }
+    .submit-btn:hover { opacity: 0.85; }
+    .submit-btn .material-symbols-outlined {
+      font-size: 18px;
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* ── Secondary Link ── */
+    .secondary-action {
+      text-align: center;
+      margin-top: 24px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      color: #4c4546;
+    }
+    .secondary-action a {
+      color: #000000;
+      text-decoration: none;
+      border-bottom: 1px solid #000000;
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .secondary-action a:hover {
+      color: #e9c349;
+      border-color: #e9c349;
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- MANDATORY BANNER -->
-  <div class="site-banner">
-    <strong>PantoMart</strong> | <span>Smart products for everyday life</span>
+  <!-- ── Background ── -->
+  <div class="bg-layer">
+    <img
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsaBJ2ACqsm1iv7-PcKBs-SC459cSdnfLI3EhdGlHm-iusIknlx3J8B4sY_LUA5rZ7fep5w7hJS-2TnXdZ3Y27Px_00_scziiOCgn6ziYtt624XhGwQtFaJp1I3TRUat2PTiP4E7OeXhujRR_s6yKk6ENtoOaO3t5ypfmv340xvqDQlB3Iu8agM7zOyyI95eHQ_1XK-hZJrQj8CJds0qPB7hkOU7pub9uxIi1YeTzGAdUkRw0TVtgJfgMJYYGS3_kwuTpeiwnWZ-s_"
+      alt=""
+    />
+    <div class="bg-texture"></div>
+    <div class="bg-gradient"></div>
   </div>
 
-  <nav class="navbar">
-    <div class="container flex-center">
-      <a href="../" class="brand-logo"><span class="brand-panto">Panto</span><span class="brand-suffix">Mart</span></a>
+  <!-- ── Login Card ── -->
+  <main class="login-card">
+
+    <!-- Branding -->
+    <div>
+      <h1 class="brand-title">PantoMart</h1>
+      <p class="brand-sub">Sign In</p>
     </div>
-  </nav>
 
-  <section class="login-container">
-    <div class="glass-panel">
-      
-      <!-- LOGIN VIEW -->
-      <div id="login-view">
-        <h2 class="text-center mb-2">Welcome Back</h2>
-        <p class="text-center text-muted mb-4">Log in to access your orders and wishlist.</p>
-        
-        <!-- Custom Google Button Wrapper -->
-        <div id="g_id_onload"
-             data-client_id="1053582959411-qccgdl5e20k2lv0vqvlblp881iq83t6d.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="handleCredentialResponse"
-             data-auto_prompt="false">
-        </div>
-        <div class="g_id_signin mb-4"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="outline"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left"
-             style="display: flex; justify-content: center;">
-        </div>
+    <!-- Error -->
+    <div id="auth-error" class="hidden"></div>
 
-        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-          <div style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></div>
-          <span style="color:rgba(255,255,255,0.4); font-size:0.85rem; letter-spacing:0.05em; text-transform:uppercase;">Or with email</span>
-          <div style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></div>
-        </div>
+    <!-- Form -->
+    <form id="login-form" novalidate>
 
-        <form id="login-form">
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-input" placeholder="you@example.com" required>
-          </div>
-          <div class="form-group mb-2">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-input" placeholder="••••••••" required>
-          </div>
-          <div class="flex-between mb-4">
-            <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; cursor:pointer; color:rgba(255,255,255,0.7);">
-              <input type="checkbox" style="accent-color: var(--accent);"> Remember me
-            </label>
-            <button type="button" id="show-forgot" style="background:none; border:none; color:var(--accent); font-weight:500; font-size:0.85rem; cursor:pointer;">Forgot Password?</button>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">Log In</button>
-          <div class="text-center mt-4" style="font-size:0.9rem; color:rgba(255,255,255,0.5);">
-            Don't have an account? <button type="button" id="show-register" style="background:none; border:none; color:var(--white); font-weight:600; cursor:pointer; margin-left:4px;">Sign Up</button>
-          </div>
-        </form>
+      <!-- Email -->
+      <div class="form-group">
+        <label class="input-label" for="email">Email Address</label>
+        <input
+          class="input-field"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          required
+          autocomplete="email"
+        />
       </div>
 
-      <!-- REGISTER VIEW -->
-      <div id="register-view" style="display:none;">
-        <button id="show-login-from-reg" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:4px; font-size:0.9rem; margin-bottom:24px; color:var(--muted);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to login</button>
-        <h2 class="mb-2">Create Account</h2>
-        <p class="text-muted mb-4">Sign up to track orders, save items to your wishlist, and more.</p>
-        <form id="register-form">
-          <div class="form-group mb-2">
-            <label class="form-label">Username</label>
-            <input type="text" id="reg-username" class="form-input" placeholder="Your Name" required>
-          </div>
-          <div class="form-group mb-2">
-            <label class="form-label">Gmail / Email Address</label>
-            <input type="email" id="reg-email" class="form-input" placeholder="you@example.com" required>
-          </div>
-          <div class="form-group mb-2">
-            <label class="form-label">Mobile Number</label>
-            <input type="tel" id="reg-mobile" class="form-input" placeholder="+1 (555) 000-0000" required>
-          </div>
-          <div class="form-group mb-2">
-            <label class="form-label">Age</label>
-            <input type="number" id="reg-age" class="form-input" placeholder="e.g. 25" min="13" max="120" required>
-          </div>
-          <div class="form-group mb-4">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-input" placeholder="••••••••" required>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
-        </form>
+      <!-- Password -->
+      <div class="form-group">
+        <div class="form-label-row">
+          <label class="input-label" for="password">Password</label>
+          <a class="input-forgot" href="#">Forgot?</a>
+        </div>
+        <input
+          class="input-field"
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          required
+          autocomplete="current-password"
+        />
       </div>
 
-      <!-- FORGOT PASSWORD VIEW -->
-      <div id="forgot-view" style="display:none;">
-        <button id="show-login" style="background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:4px; font-size:0.9rem; margin-bottom:24px; color:var(--muted);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to login</button>
-        <h2 class="mb-2">Reset Password</h2>
-        <p class="text-muted mb-4">Enter your email address and we'll send you a link to reset your password.</p>
-        <form id="forgot-form">
-          <div class="form-group mb-4">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-input" placeholder="you@example.com" required>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">Send Reset Link</button>
-        </form>
-      </div>
+      <!-- Submit -->
+      <button class="submit-btn" type="submit">
+        Sign In
+        <span class="material-symbols-outlined">arrow_right_alt</span>
+      </button>
 
-    </div>
-  </section>
+    </form>
 
-  <footer class="footer" style="background:#0a0a0a; border-top:1px solid rgba(255,255,255,0.1); margin-top:0; padding:40px 0;">
-    <div class="container text-center">
-      <div class="footer-logo" style="color:#fff;">Panto<span style="color:var(--accent);">Mart</span></div>
-      <div class="footer-bottom mt-0 border-0" style="color:rgba(255,255,255,0.3);">&copy; 2026 PantoMart. All rights reserved.</div>
-    </div>
-  </footer>
+    <!-- Register Link -->
+    <p class="secondary-action">
+      New to the atelier?
+      <a href="../register/index.html">Create an account</a>
+    </p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const userStr = localStorage.getItem('pantoUser');
-        if (userStr && userStr !== 'undefined' && userStr !== 'null') {
-          window.location.href = '../profile/';
-          return;
-        }
+  </main>
 
-        const loginView = document.getElementById('login-view');
-        const forgotView = document.getElementById('forgot-view');
-        const registerView = document.getElementById('register-view');
-        
-        const showForgot = document.getElementById('show-forgot');
-        const showLogin = document.getElementById('show-login');
-        const showRegister = document.getElementById('show-register');
-        const showLoginFromReg = document.getElementById('show-login-from-reg');
+  <!-- Scripts -->
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
 
-        showForgot.addEventListener('click', () => {
-          loginView.style.display = 'none';
-          registerView.style.display = 'none';
-          forgotView.style.display = 'block';
-        });
-
-        showLogin.addEventListener('click', () => {
-          forgotView.style.display = 'none';
-          registerView.style.display = 'none';
-          loginView.style.display = 'block';
-        });
-
-        if (showRegister) {
-          showRegister.addEventListener('click', () => {
-            loginView.style.display = 'none';
-            forgotView.style.display = 'none';
-            registerView.style.display = 'block';
-          });
-        }
-
-        if (showLoginFromReg) {
-          showLoginFromReg.addEventListener('click', () => {
-            registerView.style.display = 'none';
-            loginView.style.display = 'block';
-          });
-        }
-
-        document.getElementById('login-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          localStorage.setItem('pantoUser', JSON.stringify({ username: "PantoMart Member", email: "member@pantomart.com", mobile: "N/A" }));
-          window.location.href = '../profile/';
-        });
-
-        const regForm = document.getElementById('register-form');
-        if (regForm) {
-          regForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('reg-username').value;
-            const email = document.getElementById('reg-email').value;
-            const mobile = document.getElementById('reg-mobile').value;
-            const age = document.getElementById('reg-age').value;
-            localStorage.setItem('pantoUser', JSON.stringify({ username, email, mobile, age }));
-            window.location.href = '../profile/';
-          });
-        }
-
-      document.getElementById('forgot-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Password reset link has been sent to your email.');
-        showLogin.click();
-      });
-    });
-
-    function handleCredentialResponse(response) {
-      try {
-        const base64Url = response.credential.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        const payload = JSON.parse(jsonPayload);
-        
-        localStorage.setItem('pantoUser', JSON.stringify({
-          username: payload.name || "Google User",
-          email: payload.email || "user@gmail.com",
-          mobile: "N/A"
-        }));
-      } catch(e) {
-        localStorage.setItem('pantoUser', JSON.stringify({ username: "Google User", email: "user@gmail.com", mobile: "N/A" }));
-      }
-      window.location.href = '../profile/';
-    }
-  </script>
 </body>
 </html>

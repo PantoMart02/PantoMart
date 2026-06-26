@@ -7,13 +7,13 @@ with open('build_all_products.py', 'r', encoding='utf-8') as f:
 content = content.replace('random.shuffle(real_names)', '# random.shuffle(real_names)  # Removed so names match images consistently')
 
 # 2. Update price to INR
-content = content.replace('price_val = random.randint(85, 450) # Increased luxury pricing\\n        price = f"{price_val}.00"', 'price_val = random.randint(3500, 25000)\\n        price = f"₹{price_val:,}"')
-content = content.replace('old_price = f"${float(price) + 45}.00"', 'old_price = f"₹{price_val + random.randint(1500, 5000):,}"')
+content = content.replace('price_val = random.randint(85, 450) # Increased luxury pricing\\n        price = f"{price_val}.00"', 'price_val = random.randint(3500, 25000)\\n        price = f"â‚¹{price_val:,}"')
+content = content.replace('old_price = f"${float(price) + 45}.00"', 'old_price = f"â‚¹{price_val + random.randint(1500, 5000):,}"')
 
 # 3. Remove $ from HTML
 content = content.replace('>${price}</span>', '>{price}</span>')
 content = content.replace('data-price="${price}"', 'data-price="{price}"')
-content = content.replace('>${rel[\\'price\\']}</div>', '>{rel[\\'price\\']}</div>')
+content = content.replace('>$' + '{rel[' + chr(39) + 'price' + chr(39) + ']}</div>',                           '>{rel[' + chr(39) + 'price' + chr(39) + ']}</div>')
 content = content.replace('>${price}</div>', '>{price}</div>')
 
 # 4. Update category_template to have a background image
@@ -40,3 +40,4 @@ content = content.replace(old_format, new_format)
 
 with open('build_all_products.py', 'w', encoding='utf-8') as f:
     f.write(content)
+

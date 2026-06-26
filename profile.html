@@ -25,7 +25,7 @@
         <div id="search-dropdown" class="search-dropdown"></div>
       </div>
       <div class="nav-links">
-        <a href="./care/">Care</a><a href="./style/">Style</a><a href="./fit/">Fit</a><a href="./space/">Space</a><a href="./pet/">Pet</a>
+        <a href="category.html?cat=care">Skincare</a><a href="category.html?cat=style">Style</a><a href="category.html?cat=fit">Fitness</a><a href="category.html?cat=space">Home Decor</a><a href="category.html?cat=pet">Pet Care</a>
       </div>
       <div class="nav-actions">
         <a href="./profile/#wishlist" class="nav-icon" title="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><div class="badge" id="wish-badge">0</div></a>
@@ -242,7 +242,7 @@
           }
           let total = 0;
           container.innerHTML = cart.map((p, i) => {
-            total += parseFloat(String(p.price).replace(/[$₹,]/g, '')) || 0;
+            total += parseFloat(String(p.price).replace(/[$â‚¹,]/g, '')) || 0;
             return `
               <div style="display:flex; gap:24px; border:1px solid var(--border-color); padding:16px; border-radius:var(--radius); margin-bottom:16px; background:var(--white); box-shadow:var(--shadow);">
                 <img src="${p.img}" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
@@ -254,7 +254,7 @@
               </div>
             `;
           }).join('');
-          document.getElementById('cart-total').textContent = `₹${total.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          document.getElementById('cart-total').textContent = `â‚¹${total.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
           summary.style.display = 'block';
         } catch(e) {}
       };
@@ -354,3 +354,5 @@
   </script>
 </body>
 </html>
+
+

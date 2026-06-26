@@ -417,7 +417,7 @@ for cat_id, data in category_data.items():
     
     # Shuffle real names to avoid obvious ordering
     real_names = data["real_names"][:]
-    # random.shuffle(real_names)
+    # # random.shuffle(real_names)  # Removed so names match images consistently
     
     for idx, img_path in enumerate(images):
         web_path = "../../" + img_path.replace("\\", "/")

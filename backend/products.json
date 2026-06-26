@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Radiant Glow Serum",
+    "price": 499,
+    "category": "care",
+    "mainImage": "/assets/images/products/care/1.jpg",
+    "description": "Enhances natural glow with premium ingredients.",
+    "benefits": ["Hydration", "Smooth skin", "Luxury feel"],
+    "rating": 4.5,
+    "reviewsCount": 120
+  },
+  {
+    "name": "Hydra Boost Cream",
+    "price": 599,
+    "category": "care",
+    "mainImage": "/assets/images/products/care/2.jpg",
+    "description": "Deep hydration for daily skincare.",
+    "benefits": ["Moisturizing", "Soft skin"],
+    "rating": 4.2,
+    "reviewsCount": 95
+  },
+  {
+    "name": "Silk Touch Cleanser",
+    "price": 399,
+    "category": "care",
+    "mainImage": "/assets/images/products/care/3.jpg",
+    "description": "Gentle cleanser for a fresh start.",
+    "benefits": ["Gentle", "Refreshing"],
+    "rating": 4.3,
+    "reviewsCount": 80
+  },
+  {
+    "name": "Night Repair Elixir",
+    "price": 699,
+    "category": "care",
+    "mainImage": "/assets/images/products/care/4.jpg",
+    "description": "Repairs and restores skin overnight.",
+    "benefits": ["Repair", "Glow boost"],
+    "rating": 4.6,
+    "reviewsCount": 150
+  },
+
+  
+  {
+    "name": "Pro Fitness Band",
+    "price": 899,
+    "category": "fit",
+    "mainImage": "/assets/images/products/fit/1.jpg",
+    "description": "Track your fitness with precision.",
+    "benefits": ["Durable", "Lightweight"],
+    "rating": 4.4,
+    "reviewsCount": 210
+  },
+  {
+    "name": "Power Grip Dumbbells",
+    "price": 1199,
+    "category": "fit",
+    "mainImage": "/assets/images/products/fit/2.jpg",
+    "description": "Perfect for strength training.",
+    "benefits": ["Strong grip", "Balanced weight"],
+    "rating": 4.6,
+    "reviewsCount": 180
+  },
+  {
+    "name": "Yoga Flex Mat",
+    "price": 699,
+    "category": "fit",
+    "mainImage": "/assets/images/products/fit/3.jpg",
+    "description": "Comfortable and anti-slip yoga mat.",
+    "benefits": ["Anti-slip", "Soft cushioning"],
+    "rating": 4.5,
+    "reviewsCount": 130
+  },
+  {
+    "name": "Smart Jump Rope",
+    "price": 499,
+    "category": "fit",
+    "mainImage": "/assets/images/products/fit/4.jpg",
+    "description": "Smart skipping rope with counter.",
+    "benefits": ["Calorie tracking", "Portable"],
+    "rating": 4.3,
+    "reviewsCount": 90
+  },
+
+  
+  {
+    "name": "Pet Comfort Bed",
+    "price": 799,
+    "category": "pet",
+    "mainImage": "/assets/images/products/pet/1.jpg",
+    "description": "Soft and cozy bed for pets.",
+    "benefits": ["Soft", "Warm"],
+    "rating": 4.7,
+    "reviewsCount": 200
+  },
+  {
+    "name": "Smart Pet Feeder",
+    "price": 1499,
+    "category": "pet",
+    "mainImage": "/assets/images/products/pet/2.jpg",
+    "description": "Automatic feeding system.",
+    "benefits": ["Auto feed", "Easy use"],
+    "rating": 4.5,
+    "reviewsCount": 160
+  },
+  {
+    "name": "Pet Grooming Kit",
+    "price": 599,
+    "category": "pet",
+    "mainImage": "/assets/images/products/pet/3.jpg",
+    "description": "Complete grooming solution.",
+    "benefits": ["All-in-one", "Easy cleaning"],
+    "rating": 4.4,
+    "reviewsCount": 110
+  },
+  {
+    "name": "Pet Travel Carrier",
+    "price": 999,
+    "category": "pet",
+    "mainImage": "/assets/images/products/pet/4.jpg",
+    "description": "Safe and comfortable carrier.",
+    "benefits": ["Portable", "Strong build"],
+    "rating": 4.6,
+    "reviewsCount": 140
+  },
+
+  
+  {
+    "name": "Modern LED Lamp",
+    "price": 1299,
+    "category": "space",
+    "mainImage": "/assets/images/products/space/1.jpg",
+    "description": "Elegant lighting for your space.",
+    "benefits": ["Energy efficient", "Modern design"],
+    "rating": 4.8,
+    "reviewsCount": 300
+  },
+  {
+    "name": "Minimal Wall Shelf",
+    "price": 899,
+    "category": "space",
+    "mainImage": "/assets/images/products/space/2.jpg",
+    "description": "Stylish storage solution.",
+    "benefits": ["Space saving", "Premium look"],
+    "rating": 4.5,
+    "reviewsCount": 170
+  },
+  {
+    "name": "Luxury Cushion Set",
+    "price": 699,
+    "category": "space",
+    "mainImage": "/assets/images/products/space/3.jpg",
+    "description": "Add comfort and style.",
+    "benefits": ["Soft fabric", "Elegant"],
+    "rating": 4.4,
+    "reviewsCount": 120
+  },
+  {
+    "name": "Smart Air Diffuser",
+    "price": 1499,
+    "category": "space",
+    "mainImage": "/assets/images/products/space/4.jpg",
+    "description": "Aromatic experience at home.",
+    "benefits": ["Relaxing", "Smart control"],
+    "rating": 4.7,
+    "reviewsCount": 210
+  },
+
+
+  {
+    "name": "Premium Watch",
+    "price": 1999,
+    "category": "style",
+    "mainImage": "/assets/images/products/style/1.jpg",
+    "description": "Timeless elegance for every occasion.",
+    "benefits": ["Luxury design", "Durable"],
+    "rating": 4.6,
+    "reviewsCount": 250
+  },
+  {
+    "name": "Classic Sunglasses",
+    "price": 999,
+    "category": "style",
+    "mainImage": "/assets/images/products/style/2.jpg",
+    "description": "Stylish eye protection.",
+    "benefits": ["UV protection", "Trendy"],
+    "rating": 4.4,
+    "reviewsCount": 180
+  },
+  {
+    "name": "Leather Wallet",
+    "price": 799,
+    "category": "style",
+    "mainImage": "/assets/images/products/style/3.jpg",
+    "description": "Premium leather craftsmanship.",
+    "benefits": ["Durable", "Compact"],
+    "rating": 4.5,
+    "reviewsCount": 140
+  },
+  {
+    "name": "Designer Backpack",
+    "price": 1499,
+    "category": "style",
+    "mainImage": "/assets/images/products/style/4.jpg",
+    "description": "Perfect blend of style and utility.",
+    "benefits": ["Spacious", "Trendy"],
+    "rating": 4.7,
+    "reviewsCount": 220
+  }
+]
